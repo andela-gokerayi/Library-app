@@ -1,0 +1,27 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
+
+try:
+    from functools import wraps
+except ImportError:
+    from django.utils.functional import wraps  # Python 2.4 fallback.
+
+
+def staff_or_403(view_func):
+    """
+    Decorator for views that checks that the user is logged in and is a staff
+    member, raising a 404 if necessary.
+    """
+    def _checklogin(request, *args, **kwargs):
+        if request.user.is_active and request.user.is_staff:
+            # The user is valid. Continue to the admin page.
+            return view_func(request, *args, **kwargs)
+
+        else:   
+            # raise Http404
+            return HttpResponseRedirect(reverse('staff_403'))
+
+
+    return wraps(view_func)(_checklogin)

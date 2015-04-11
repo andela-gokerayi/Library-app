@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block content %}
+  <form action="/add-book/" method="post">
+  {% csrf_token %}
+    <label for="id_title">Book Title: </label>
+    <input id = "id_title" type="text" name="title" value="{{ current_title }}">
+    <label for="id_category">Book Category: </label>
+    <input id = "id_category" type="text" name="category" value="{{ current_category }}">
+    <label for="id_quantity">Book Quantity: </label>
+    <input id = "id_quantity" type="number" name="quantity" value="{{ current_quantity }}">
+    <label for="id_available">Available: </label>
+    <input id = "id_available" type="number" name="available" value="{{ current_available }}">
+    <label for="id_borrowed">Borrowed: </label>
+    <input id = "id_borrowed" type="number" name="borrowed" value="{{ current_borrowed }}">
+    <input type="submit" value="ADD BOOK">
+  </form>
+{% endblock content %}

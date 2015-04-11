@@ -1,0 +1,92 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>
+        {% block title %}
+            Andela Library
+        {% endblock title %}
+    </title>
+    {% block styling %}
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/reset.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'materialize/css/materialize.css'%}">
+    {% endblock %}
+</head>
+<body>
+    {% block nav %}
+        <header>
+            <nav class = "navbar">
+                <div class="container">
+                    <div class="wrapper">
+                        <ul>
+                            <li><a href="{% url 'book-index' %}">Home</a></li>
+                            <li><a href="{% url 'books-list' %}">List of Books</a></li>
+                            <li><a href="{% url 'book-index' %}">Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+    {% block img %}
+        <img class = "image" src="{% static 'images/book2.jpg' %}">
+    {% endblock %}
+
+    {% block side %}
+        <div class="row">
+            <div class="col s3">
+                <ul class="side">
+                    <li>lorem</li>
+                    <li>pisum</li>
+                    <li>Professional Development</li>
+                    <li>Professional Development</li>
+                    <li>Professional Development</li>
+                    <li>Professional Development</li>
+                    <li>Professional Development</li>
+                </ul>
+                <a class="btn-floating btn-large waves-effect waves-light red" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a>  
+            </div>
+            <div class="search-box">
+                <form>
+                    <div class="input-field">
+                        <input id="filter" type="text" value="" required>
+                        <span id="filter-count"></span>
+                        <label for="filter"><i class="mdi-action-search"></i></label>
+                    </div>
+                </form>
+            </div>
+            <div class="col s9 books">
+                {% block content %}
+                    <div class="row">
+                        <ul>
+                        {% for book in object_list %}
+                          <li>
+                            <div class="col s3">{{book.title}}-{{book.author}}</div>
+                          </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endblock content %}
+            </div>
+        </div>
+    {% endblock %}
+    {% block footer %}
+      <footer class="footer">
+        <div class="footer-text">
+          <div class="container">
+            Made in <strong>Lagos </strong>with &#x2665; by Andela Fellows.
+          </div>
+        </div>
+      </footer>
+    {% endblock %}
+    {% block javascript %}
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
+    {% endblock %}
+</body>
+</html>
