@@ -22,17 +22,3 @@ urlpatterns = patterns ('',
     url(r'^book-lend/(?P<pk>\d+)/$', BookDetailView.as_view(), name='book-detail'),
     url(r'^borrow/$', borrow_book, name='borrow-book'),
 )
-
-
-
-# urlpatterns = patterns('',
-#     url(r'^$', HomeView.as_view(), name='home'),
-#     url(r'^admin/', include(admin.site.urls)),
-#     url(r'^login/', LoginView.as_view(), name='login'),
-#     url(r'^logout/', LogoutView.as_view(), name='logout'),
-#     url(r'^dashboard/', login_required( DashboardView.as_view() ), name='dashboard'),
-#     url(r'^createplan/(?P<pk>\d+)/$', login_required( CreatePlanView.as_view() ), name='create_plan'),
-#     url(r'^payment/success/$', success, name='success'),
-#     url(r'^sync-payment/$', login_required( SyncPaymentView.as_view() ), name='sync_payment'),
-#     url(r'^payment/change-plan/(?P<pk>\d+)/$', login_required( ChangePaymentPlanView.as_view() ), name='change_plan'),
-# )
