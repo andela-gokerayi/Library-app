@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'book',
+    'apps.book',
+    'apps.libraryuser',
 ]
 
 # THIRD_PARTY_APPS = []

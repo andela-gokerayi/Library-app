@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="jobs-container">
+        <table class="striped responsive hoverable">
+            <thead>
+                <th>TITLE</th>
+                <th>AUTHOR</th>
+                <th>CATEGORY</th>
+                <th>QUANTITY</th>
+                <th>ISBN</th>
+                <th>GIVEN BY</th>
+                <th>DATE ISSUED</th>
+            </thead>
+            <tbody>
+                {% for book in object_list %}   
+                    <tr class='list'>
+                        <td><p class="truncate">{{book.title}}</p></td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.category}}</td>
+                        <td>{{book.quantity}}</td>
+                        <td>{{book.isbn_number}}</td>
+                        <td>{{book.source}}</td>
+                        <td>{{book.date_recieved}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
