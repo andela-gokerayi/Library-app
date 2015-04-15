@@ -12,7 +12,7 @@ from apps.libraryuser.models import Fellow
 
 urlpatterns = patterns ('',
     # url(r'^home/', HomeView.as_view(), name='home'),
-    url(r'^$', BookIndexListView.as_view(), name='book-index'),
+    url(r'^home/', BookIndexListView.as_view(), name='book-index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/', LoginView.as_view(), name='login'),
     url(r'^logout/', LogoutView.as_view(), name='logout'),
