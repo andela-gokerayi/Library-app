@@ -14,3 +14,4 @@ lib64/
 .installed.cfg
 *.egg
 staticfiles
+prod_env
