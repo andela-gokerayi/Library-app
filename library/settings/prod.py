@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = 'staticfiles'
 
 
 
