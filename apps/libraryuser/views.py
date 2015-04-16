@@ -52,7 +52,7 @@ def auth_view(request):
 
 def logout(request):
     auth.logout(request)
-    render_to_response('base.html')
+    return HttpResponseRedirect(reverse('home'))
 
 
 
