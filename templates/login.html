@@ -18,7 +18,7 @@
                   <p class="'error">Sorry, invalid username or password</p>
                 {% endif %}
 
-                <form class="col s12 m12 l12 #26a69a" action="{% url 'login' %}" method="POST">
+                <form class="col s12 m12 l12 #26a69a" action="{% url 'auth-user' %}" method="POST">
                 {% csrf_token %}
                 
                   <div class="row">

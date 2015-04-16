@@ -28,7 +28,7 @@ class Book(models.Model):
     
 
 class BookLease(models.Model):
-    book = models.ForeignKey(Book, null=True, blank=True, related_name='booklease')
+    book = models.ForeignKey(Book)
     borrower = models.ForeignKey(Fellow)
     borrowed_date = models.DateField(null=True)
     return_date = models.DateField(null=True)

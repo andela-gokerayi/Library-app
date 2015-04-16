@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('return_date', models.DateField(null=True)),
                 ('due_date', models.DateField(null=True)),
                 ('returned', models.NullBooleanField()),
-                ('book', models.ForeignKey(related_name='booklease', blank=True, to='book.Book', null=True)),
+                ('book', models.ForeignKey(to='book.Book')),
                 ('borrower', models.ForeignKey(to='libraryuser.Fellow')),
             ],
         ),

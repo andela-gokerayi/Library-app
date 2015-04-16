@@ -1,7 +1,28 @@
 {% extends 'index.html' %}
 {% load staticfiles %}
 
+        <a class="btn-floating btn-large waves-effect waves-light #26a69a add btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a> 
+    <div class="search-box">
+        <form>
+            <div class="input-field">
+                <input id="filter" type="text" value="" required>
+                <span id="filter-count"></span>
+                <label for="filter"><i class="mdi-action-search"></i></label>
+            </div>
+        </form>
+    </div>
 {% block content %}
+    <a class="btn-floating btn-large waves-effect waves-light #26a69a add btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a> 
+    <div class="search-box">
+        <form>
+            <div class="input-field">
+                <input id="filter" type="text" value="" required>
+                <span id="filter-count"></span>
+                <label for="filter"><i class="mdi-action-search"></i></label>
+            </div>
+        </form>
+    </div>
+
     <div class="jobs-container">
         <table class="striped responsive hoverable">
             <thead>
@@ -28,4 +49,5 @@
             </tbody>
         </table>
     </div>
+<div><a class="waves-effect waves-light btn-large borrow" href="{% url 'borrow-book' %}">Borrow a Book</a></div> 
 {% endblock content %}
