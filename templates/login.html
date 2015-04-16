@@ -9,6 +9,7 @@
 {% block content %}
   <div class="col s12 m9 l9">
     <div class="row">
+    <div class="col s12 m3 l6 login-card">
         <div class="card ">
           <div class="card-content black-text">
               <div class="form-wrapper center-align">
@@ -18,7 +19,7 @@
                   <p class="'error">Sorry, invalid username or password</p>
                 {% endif %}
 
-                <form class="col s12 m12 l12 #26a69a" action="{% url 'auth-user' %}" method="POST">
+                <form class="col s12 m12 l12 #26a69a login-form" action="{% url 'auth-user' %}" method="POST">
                 {% csrf_token %}
                 
                   <div class="row">
