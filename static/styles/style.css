@@ -33,6 +33,10 @@ nav ul {
   line-height: 50px
 }
 
+.login-card {
+   margin-left: 25% !important;
+}
+
 .books {
   margin-top: 7%;
   max-height: 100%;
