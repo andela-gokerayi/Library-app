@@ -25,10 +25,11 @@
                         <li><a href="{% url 'book-index' %}">Home</a></li>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'book-list' %}">Book Status</a></li>
-                            <li>{{request.user.username}}</li>
                             <li><a href="{% url 'login' %}">Logout</a></li>
+                            <li>{{request.user.username}}</li>
+
                         {% else %}
-                            <li><a href="#login-modal" class="modal-trigger">Login</a></li>
+                            <li><a href="{% url 'login' %}">Login</a></li>
                         {% endif %}
                         </ul>    
                     </ul>

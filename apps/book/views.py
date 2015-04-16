@@ -92,12 +92,3 @@ def borrow_book(request):
         # alert('Please fill all fields')
 
     return render(request, 'borrow_book.html', {'form': form})
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,14 @@
-from base import *
+from .base import *
+
 
 DEBUG = True
+
+TEMPLATE_DEBUG = True
+
+STATIC_ROOT = 'my static dir'
+
+# Database
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
