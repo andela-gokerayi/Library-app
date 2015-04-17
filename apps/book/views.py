@@ -10,7 +10,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.template import RequestContext
 
-
 from apps.book.models import BookLease
 from apps.libraryuser.models import Fellow
 from apps.book.forms import AddForm, LendBookForm

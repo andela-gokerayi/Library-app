@@ -2,6 +2,7 @@
 {% block content %}
   <form method="post">
   {% csrf_token %}
+    <!--<input type="hidden" name="id" value="{{book.id}}" />-->
     <label for="id_title">Book Title: </label>
     <input id = "id_title" type="text" name="title" value="{{ current_title }}">
     <label for="id_author">Book Author: </label>
