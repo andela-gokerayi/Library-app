@@ -46,9 +46,11 @@ class BookDetailView(DetailView):
 def get_book(request):
     # if this is a POST request we need to process the form data
     user = request.user
+    print user
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = AddForm(request.POST)
+        print form
         # check whether it's valid:
         if form.is_valid():
             form.save()
