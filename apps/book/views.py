@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import View
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -109,21 +109,36 @@ def borrow_book(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = LendBookForm(request.POST)
-        form.fields['borrower'].queryset = Fellow.objects.all()
 
         print form
         # check whether it's valid:
         if form.is_valid():
             form.save()
-            # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
             # return render_to_response("book_new.html", RequestContext(request))
             return HttpResponseRedirect('book-list')
 
-    # if a GET (or any other method) we'll create a blank form
+    
     else:
         form = LendBookForm()
-        # alert('Please fill all fields')
 
     return render(request, 'borrow_book.html', {'form': form})
+
+
+
+
+# def borrow_book(request):
+#     book = request.session.get('book',  None)
+
+#     if book is None:
+#         raise Http404('a was not found')
+
+#     if request.method == 'POST':
+#         form = LendBookForm(request.POST, instance=book)
+#         if form.is_valid():
+#             j = form.save( commit=False )
+#             j.save()
+#             return HttpResponseRedirect('book-list')
+#     else:
+#         form = LendBookForm( instance = book )
