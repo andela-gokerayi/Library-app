@@ -14,9 +14,9 @@ class Book(models.Model):
 
     def get_num_available_book(self):
 
-        book = Book.objects.get(id=id)
-        total_leased = book.booklease_set.count()
-        available = book.quantity - total_leased
+        # book = Book.objects.get(id=id)
+        total_leased = self.book_leases.all().count()
+        available = self.quantity - total_leased
         return available
     
     num_book_available = property(get_num_available_book)
@@ -26,12 +26,21 @@ class Book(models.Model):
 
 
 class BookLease(models.Model):
-    book = models.ForeignKey(Book)
+    book = models.ForeignKey(Book, related_name='book_leases')
     borrower = models.ForeignKey(Fellow)
     borrowed_date = models.DateField(null=True)
     return_date = models.DateField(null=True)
     due_date = models.DateField(null=True)
     returned = models.NullBooleanField()
+
+    # def get_num_available_book(self):
+
+        # book = Book.objects.get(id=id)
+    #     total_leased = self.book_leases.all().count()
+    #     available = self.quantity - total_leased
+    #     return available
+    
+    # num_book_available = property(get_num_available_book)
 
     def __unicode__(self): 
         return '{}'.format(self.book)
