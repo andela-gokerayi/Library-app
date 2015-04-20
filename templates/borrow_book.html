@@ -1,24 +1,32 @@
 {% extends "index.html" %}
 {% block content %}
-  <form method="post">
-  {% csrf_token %}
-    <!--<input type="hidden" name="id" value="{{book.id}}" />-->
-    <label for="id_title">Book Title: </label>
-    <input id = "id_title" type="text" name="title" value="{{ current_title }}">
-    <label for="id_author">Book Author: </label>
-    <input id = "id_author" type="text" name="author" value="{{ current_author }}">
-    <label for="id_borrower_first_name">Borrowers First Name: </label>
-    <input id = "id_borrower_first_name" type="text" name="borrower_first_name" value="{{ current_first_name }}">
-    <label for="id_borrower_last_name">Borrowers Last Name: </label>
-    <input id = "id_borrower_last_name" type="text" name="borrower_last_name" value="{{ current_last_name }}">
-    <label for="id_borrowed_date">Date Borrowed: </label>
-    <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ current_borrowed_date }}">
-    <label for="id_return_date">Return Date: </label>
-    <input id = "id_return_date" type="date" name="return_date" value="{{ current_return_date }}">
-    <label for="id_due_date">Due Date: </label>
-    <input id = "id_due_date" type="date" name="due_date" value="{{ current_due_date }}">
-    <button class="btn waves-effect waves-light" type="submit" name="action">Lend
-      <i class="mdi-content-send right"></i>
-    </button>
-  </form>
+<div class="col s12 m3 l12 login-card">
+    <div class="card add-book-card">
+        <div class="card-content">
+            <h4>Lend Book</h4>
+            <div class="add-form">
+              <form class="book-add" method="post">
+              {% csrf_token %}
+                <label for="id_title">Book Title: </label>
+                <input id = "id_title" type="text" name="title" value="{{ current_title }}">
+                <label for="id_author">Book Author: </label>
+                <input id = "id_author" type="text" name="author" value="{{ current_author }}">
+                <label for="id_borrower_first_name">Borrowers First Name: </label>
+                <input id = "id_borrower_first_name" type="text" name="borrower_first_name" value="{{ current_first_name }}">
+                <label for="id_borrower_last_name">Borrowers Last Name: </label>
+                <input id = "id_borrower_last_name" type="text" name="borrower_last_name" value="{{ current_last_name }}">
+                <label for="id_borrowed_date">Date Borrowed: </label>
+                <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ current_borrowed_date }}">
+                <label for="id_return_date">Return Date: </label>
+                <input id = "id_return_date" type="date" name="return_date" value="{{ current_return_date }}">
+                <label for="id_due_date">Due Date: </label>
+                <input id = "id_due_date" type="date" name="due_date" value="{{ current_due_date }}">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Lend
+                  <i class="mdi-content-send right"></i>
+                </button>
+              </form>  
+            </div>
+        </div>
+    </div>   
+</div>
 {% endblock content %}

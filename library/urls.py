@@ -12,14 +12,17 @@ from apps.libraryuser.models import Fellow
 
 urlpatterns = patterns ('',
     url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^detail/(?P<pk>[-_\w]+)', BookDetailView.as_view(), name='book-detail'),
     url(r'^home/', BookIndexListView.as_view(), name='book-index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth-user/$', auth_view, name='auth-user'),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^add-book/$', login_required(get_book), name='add-book'),
     url(r'^book-status/$', BookListView.as_view(), name='book-list'),
-    url(r'^book-lend/(?P<pk>\d+)/$', BookDetailView.as_view(), name='book-detail'),
+    url(r'^add-book/$', login_required(get_book), name='add-book'),
+    url(r'^edit-book/(?P<id>\d+)/$', login_required(get_book), name='bookedit-'),
     url(r'^borrow/$', borrow_book, name='borrow-book'),
     # url(r'^accounts/register/$', register_user),
 )
+
+   

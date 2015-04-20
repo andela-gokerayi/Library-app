@@ -12,7 +12,7 @@
         </form>
     </div>
 {% block content %}
-    <a class="btn-floating btn-large waves-effect waves-light #26a69a add btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a> 
+    <!--<a class="btn-floating btn-large waves-effect waves-light #26a69a add btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a>-->
     <div class="search-box">
         <form>
             <div class="input-field">
@@ -30,24 +30,21 @@
                 <th>AUTHOR</th>
                 <th>CATEGORY</th>
                 <th>QUANTITY</th>
-                <th>ISBN</th>
-                <th>GIVEN BY</th>
-                <th>DATE ISSUED</th>
+                <th>AVAILABLE</th>
             </thead>
             <tbody>
                 {% for book in object_list %}   
                     <tr class='list'>
-                        <td><p class="truncate">{{book.title}}</p></td>
+                        <td><a href="/detail/{{book.id}}"><p class="truncate">{{book.title}}</p></a></td>
                         <td>{{book.author}}</td>
                         <td>{{book.category}}</td>
                         <td>{{book.quantity}}</td>
-                        <td>{{book.isbn_number}}</td>
-                        <td>{{book.source}}</td>
-                        <td>{{book.date_recieved}}</td>
+                        <td>{{book.num_book_available}}</td>
+                        <td><a href= "{% url 'borrow-book' %}"><button class="waves-effect waves-light btn-small ">lend</button></a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-<div><a class="waves-effect waves-light btn-large borrow "  href="{% url 'book-list' %}">Borrow a Book</a></div> 
+<div><a class="waves-effect waves-light btn-large borrow btn tooltipped" data-position="right" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a></div> 
 {% endblock content %}

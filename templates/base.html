@@ -22,9 +22,9 @@
             <div class="container">
                 <div class="wrapper">
                     <ul>
-                        <li><a href="{% url 'book-index' %}">Home</a></li>
                         {% if request.user.is_authenticated %}
-                            <li><a href="{% url 'book-list' %}">Book Status</a></li>
+                            <li><a href="{% url 'book-index' %}">Home</a></li>
+                            <li><a href="{% url 'book-list' %}">Track Books</a></li>
                             <li><a href="{% url 'logout' %}">Logout</a></li>
                             <li>{{request.user.username}}</li>
 
@@ -38,13 +38,13 @@
         </nav>
     </header>
 
+
     {% block img %}
         <img class = "image" src="{% static 'images/book2.jpg' %}">
     {% endblock %}
 
     {% block side %}
     {% endblock %}
-
     {% block content %}
     {% endblock %}
 

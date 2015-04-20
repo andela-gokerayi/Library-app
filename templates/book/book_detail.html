@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Andela Library
+{% endblock title %}
+
+{% block content %}
+      <div class="row">
+        <div class="col s12 m6 book-detail">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <h1><span class="card-title">{{ book.title }}</span></h1>
+              <p>Author: {{book.author}}</p>
+              <p>Category: {{book.category}}</p>
+              <p>Quantity: {{book.quantity}}</p>
+              <p>ISBN: {{book.isbn_number}}</p>
+              <p>Availble: {{num_book_available}}</p>
+              <p>Date Recieved: {{book.date_recieved}}</p>
+              <p>Given By: {{book.source}}</p>
+            <div class="card-action links">
+                <a href="/edit-book/{{book.id}}" class="waves-effect waves-green btn-flat ">Edit</a>
+                <a href="{% url 'borrow-book' %}" class="waves-effect waves-green btn-flat ">Lend</a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock content %}
+
+
+            
+<!--<div class="card-content black-text">
+    <div>
+      <h1>{{ book.title }}</h1>
+      <p>Author: {{book.author}}</p>
+      <p>Category: {{book.category}}</p>
+      <p>Quantity: {{book.quantity}}</p>
+      <p>ISBN: {{book.isbn_number}}</p>
+      <p>Availble: {{num_book_available}}</p>
+      <p>Date Recieved: {{book.date_recieved}}</p>
+      <p>Given By: {{book.source}}</p>
+    </div>
+    <div class="modal-footer">
+      <a href="/edit-book/{{book.id}}" class="waves-effect waves-green btn-flat ">Edit</a>
+      <a href="{% url 'borrow-book' %}" class="waves-effect waves-green btn-flat ">Lend</a>
+    </div>
+ </div>-->
