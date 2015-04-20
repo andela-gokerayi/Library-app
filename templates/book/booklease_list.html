@@ -19,7 +19,7 @@
             {% for book in object_list %}   
                 <tr class='list'>
                     <td><a href="book-detail"><p class="truncate">{{book.book}}</a></p></td> 
-                    <td>{{book.available}}</td>
+                    <td>{{book.num_book_available}}</td>
                     <td>{{book.borrower}}</td>
                 </tr>
             {% endfor %}
