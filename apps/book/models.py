@@ -3,12 +3,6 @@ from django.db import models
 from apps.libraryuser.models import StaffUser, Fellow
 
 
-# class BookManager(models.Manager):
-#     def book_borrower(self, borrower):
-#         borrower = self.create(borrower=borrower)
-#         return borrower
-
-
 class Book(models.Model):
     title = models.CharField(max_length=50, blank=False)
     author = models.CharField(max_length=100, blank=False)
@@ -18,14 +12,18 @@ class Book(models.Model):
     source = models.CharField(max_length=50)
     category = models.CharField(max_length=50)
 
-    # objects = BookManager()
+    def get_num_available_book(self):
 
-    # def get_num_borrower(self):
-    #     return self.borrower.all().count()
-
+        book = Book.objects.get(id=id)
+        total_leased = book.booklease_set.count()
+        available = book.quantity - total_leased
+        return available
+    
+    num_book_available = property(get_num_available_book)
+        
     def __unicode__(self): 
         return '{}'.format(self.title)
-    
+
 
 class BookLease(models.Model):
     book = models.ForeignKey(Book)
