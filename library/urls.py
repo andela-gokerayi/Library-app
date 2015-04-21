@@ -20,8 +20,8 @@ urlpatterns = patterns ('',
     url(r'^logout/$', logout, name='logout'),
     url(r'^book-status/$', BookListView.as_view(), name='book-list'),
     url(r'^add-book/$', login_required(get_book), name='add-book'),
-    url(r'^edit-book/(?P<id>\d+)/$', login_required(get_book), name='bookedit-'),
-    url(r'^borrow/$', borrow_book, name='borrow-book'),
+    url(r'^edit-book/(?P<id>\d+)/$', login_required(get_book), name='edit-book'),
+    url(r'^borrow/(?P<id>\d+)/$', borrow_book, name='borrow-book'),
     # url(r'^accounts/register/$', register_user),
 )
 

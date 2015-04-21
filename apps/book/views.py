@@ -102,14 +102,13 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
 
 
 @login_required
-def borrow_book(request):
-    # if this is a POST request we need to process the form data
+def borrow_book(request, id=None, template_name = 'book_new.html'):
+    # the_book = get_object_or_404(Book, pk=id)
     user = request.user
     print user
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = LendBookForm(request.POST)
-
         print form
         # check whether it's valid:
         if form.is_valid():
@@ -124,21 +123,3 @@ def borrow_book(request):
         form = LendBookForm()
 
     return render(request, 'borrow_book.html', {'form': form})
-
-
-
-
-# def borrow_book(request):
-#     book = request.session.get('book',  None)
-
-#     if book is None:
-#         raise Http404('a was not found')
-
-#     if request.method == 'POST':
-#         form = LendBookForm(request.POST, instance=book)
-#         if form.is_valid():
-#             j = form.save( commit=False )
-#             j.save()
-#             return HttpResponseRedirect('book-list')
-#     else:
-#         form = LendBookForm( instance = book )
