@@ -102,10 +102,11 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
 
 
 @login_required
-def borrow_book(request, id=None, template_name = 'book_new.html'):
+def borrow_book(request, id=None):
     # the_book = get_object_or_404(Book, pk=id)
     user = request.user
     print user
+    
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = LendBookForm(request.POST)
