@@ -83,12 +83,12 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
         if form.is_valid():
             form.save()
 
-        return render(request, "thank_you.html", locals())
+            return render(request, "thank_you.html", locals())
 
     else:
         form = AddForm()
 
-    return render_to_response (template_name, {'form': form,},context_instance = RequestContext(request))
+    return render(request, 'book_new.html', {'form': form,},context_instance = RequestContext(request))
 
 
 #     context = {'book_form': book_form, 'book': book}
@@ -106,7 +106,7 @@ def borrow_book(request, id=None):
     # the_book = get_object_or_404(Book, pk=id)
     user = request.user
     print user
-    
+
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = LendBookForm(request.POST)
