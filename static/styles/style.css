@@ -40,6 +40,23 @@ nav ul {
   margin-left: 90%
 }
 
+.del {
+  margin-left: 112%;
+  margin-top: 20px;
+}
+
+.del-modal {
+    top: 40% !important;
+}
+
+.modal-content {
+  margin-right: 150px !important;
+}
+
+.modal-header {
+  color: rgb(90, 88, 88);
+}
+
 .side {
   margin-top: 30%;
   line-height: 50px
@@ -47,6 +64,18 @@ nav ul {
 
 .add-book-card {
   width: 75%;
+}
+
+.success {
+  margin-top: 10% !important;
+  width: 50%;
+  margin-left: 25% !important;
+  height: 200px;
+}
+
+.view {
+  position: relative;
+  margin-left: 45%;
 }
 
 h4 {
@@ -86,7 +115,13 @@ p {
 }
 
 .links {
-  margin-left: 140px;
+  margin-left: 30px;
+  text-align: center;
+  width: 500px;
+}
+
+.book-action {
+  margin: 0 !important;
 }
 
 .card-content {
