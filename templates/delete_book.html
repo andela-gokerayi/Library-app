@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block content %}
+Hey, are you sure you want to delete {{ object.title }}?
+<form method="post">
+  {% csrf_token %}
+<a href="{% url 'book-index' %"><button>Yeap, I'm sure.</button></a>
+<a href="/detail/{{object.id}}">Cancel</a>
+</form>
+{% endblock %}
+
+
