@@ -11,6 +11,11 @@ class AddForm(forms.ModelForm):
         model = Book
         fields = ['title', 'author', 'category', 'quantity', 'source', 'isbn_number', 'date_recieved']
 
+class BookEditForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'category', 'quantity', 'source', 'isbn_number', 'date_recieved']
+
 class LendBookForm(forms.ModelForm):
 
     class Meta:
