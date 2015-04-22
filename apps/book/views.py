@@ -11,6 +11,8 @@ from django.contrib import auth
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.views.generic.edit import DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
@@ -91,16 +93,6 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
     return render(request, 'book_new.html', {'form': form,},context_instance = RequestContext(request))
 
 
-#     context = {'book_form': book_form, 'book': book}
-#     return render(request, 'borrow_book.html', context)
-
-# def get(self, request):
-
-#     book_form = AddForm()
-#     context = {'book_form': book_form}
-#     return render(request, 'book_new.html', context)
-
-
 @login_required
 def borrow_book(request, id=None):
     # the_book = get_object_or_404(Book, pk=id)
@@ -124,3 +116,27 @@ def borrow_book(request, id=None):
         form = LendBookForm()
 
     return render(request, 'borrow_book.html', {'form': form})
+
+
+def book_delete(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    print book    
+    # if request.method=='POST':
+    if book:
+        book.delete()
+    return HttpResponseRedirect('/home/')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
