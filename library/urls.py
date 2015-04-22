@@ -6,6 +6,7 @@ from apps.book.views import BookDetailView
 from apps.book.views import book_delete
 # from apps.book.views import BorrowBookView
 from apps.book.views import get_book
+from apps.book.views import edit_book
 from apps.book.views import borrow_book
 from apps.libraryuser.views import BookIndexListView, auth_view, login, logout
 from apps.libraryuser.views import HomeView
@@ -20,8 +21,8 @@ urlpatterns = patterns ('',
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^book-status/$', BookListView.as_view(), name='book-list'),
-    url(r'^add-book/$', login_required(get_book), name='add-book'),
-    url(r'^edit-book/(?P<id>\d+)/$', login_required(get_book), name='edit-book'),
+    url(r'^add-book/$', get_book, name='add-book'),
+    url(r'^edit-book/(?P<id>\d+)/$', edit_book, name='edit-book'),
     url(r'^borrow/(?P<id>\d+)/$', borrow_book, name='borrow-book'),
     # url(r'^delete/(?P<id>\d+)/$', delete, name='delete')
     url(r'^delete/(?P<pk>\d+)$', book_delete, name='book_delete'),
