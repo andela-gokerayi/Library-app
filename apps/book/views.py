@@ -16,7 +16,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
-from apps.book.forms import AddForm, LendBookForm
+from apps.book.forms import AddForm, LendBookForm, BookEditForm
 
 # Create your views here.
 
@@ -42,32 +42,6 @@ class BookDetailView(DetailView):
         print context
         return context
 
-# @login_required
-# def get_book(request):
-#     # if this is a POST request we need to process the form data
-#     user = request.user
-#     print user
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = AddForm(request.POST)
-#         print form
-#         # check whether it's valid:
-#         if form.is_valid():
-#             form.save()
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return render(request, "thank_you.html", locals())
-
-
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = AddForm()
-#         # alert('Please fill all fields')
-
-#     return render(request, 'book_new.html', {'form': form})
-
-
 
 def get_book(request, id=None, template_name = 'book_new.html' ):
     user = request.user
@@ -76,8 +50,6 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
         book = get_object_or_404 (Book, pk=id)
 
     if request.POST:
-
-        # book = get_object_or_404(Book, id=request.POST.get('id'))
 
         form = AddForm(request.POST)
     # check whether form is valid
@@ -95,7 +67,6 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
 
 @login_required
 def borrow_book(request, id=None):
-    # the_book = get_object_or_404(Book, pk=id)
     user = request.user
     print user
 
@@ -108,7 +79,6 @@ def borrow_book(request, id=None):
             form.save()
             # ...
             # redirect to a new URL:
-            # return render_to_response("book_new.html", RequestContext(request))
             return HttpResponseRedirect('book-list')
 
     
@@ -127,6 +97,23 @@ def book_delete(request, pk):
     return HttpResponseRedirect('/home/')
 
 
+
+def edit_book(request, id=None):
+    book = Book.objects.get(id = id)
+    print book.__dict__, "The Book"
+    book.pk = id
+
+    if request.method == 'POST':
+        form = BookEditForm(request.POST, instance=book)
+
+        if form.is_valid():
+            form.save()
+
+            return render(request, "updated.html", locals())
+    else:
+        form = BookEditForm(instance=book)
+
+    return render(request, 'book_edit.html', locals(), context_instance = RequestContext(request))
 
 
 
