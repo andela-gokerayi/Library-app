@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required, permission_required
 from apps.book.views import BookListView
 from apps.book.views import BookDetailView
+from apps.book.views import book_delete
 # from apps.book.views import BorrowBookView
 from apps.book.views import get_book
 from apps.book.views import borrow_book
@@ -22,6 +23,8 @@ urlpatterns = patterns ('',
     url(r'^add-book/$', login_required(get_book), name='add-book'),
     url(r'^edit-book/(?P<id>\d+)/$', login_required(get_book), name='edit-book'),
     url(r'^borrow/(?P<id>\d+)/$', borrow_book, name='borrow-book'),
+    # url(r'^delete/(?P<id>\d+)/$', delete, name='delete')
+    url(r'^delete/(?P<pk>\d+)$', book_delete, name='book_delete'),
     # url(r'^accounts/register/$', register_user),
 )
 
