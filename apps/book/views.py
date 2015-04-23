@@ -79,7 +79,7 @@ def borrow_book(request, id=None):
             form.save()
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('book-list')
+            return HttpResponseRedirect('/book-status/')
 
     
     else:

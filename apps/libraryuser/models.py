@@ -32,3 +32,5 @@ class Fellow(models.Model):
         except AttributeError, e:
             e = '--'
             return e
+
+    

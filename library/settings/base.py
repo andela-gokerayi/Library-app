@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'restembed.core',
+    'rest_framework',
     'envvars',
     'apps.book',
     'apps.libraryuser',
@@ -122,3 +124,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     'static',
 )
+
+SKILLTREE_API_URL = 'http://skilltree.andela.co/api/v1/users'
+SKILLTREE_API_PAGE = 1-20
+
+
