@@ -46,11 +46,13 @@ nav ul {
 }
 
 .del-modal {
-    top: 40% !important;
+    top: 10% !important;
 }
 
 .modal-content {
   margin-right: 150px !important;
+  /*margin-bottom: 50% !important;*/
+  /*text-align: center;*/
 }
 
 .modal-header {
@@ -130,6 +132,14 @@ p {
 
 .borrow {
   margin-top: 150px;
+}
+
+select { 
+  display: block; 
+}
+
+.modal-lend_content {
+  margin-bottom: 150px !important;
 }
 
 .footer {

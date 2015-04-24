@@ -40,11 +40,41 @@
                         <td>{{book.category}}</td>
                         <td>{{book.quantity}}</td>
                         <td>{{book.num_book_available}}</td>
-                        <td><a href= "/borrow/{{book.id}}"><button class="waves-effect waves-light btn-small ">lend</button></a></td>
+                        {% if book.num_book_available >= 1 %}
+                            <td><a href="#modal1" class="waves-effect waves-light modal-trigger" ><button>lend</button></a></td>
+                        {% else %}
+                            <td><a href="#modal1" class="waves-effect waves-light modal-trigger disabled" ><button type="button" disabled>unavalable</button></a></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+
+    <div id="modal1" class="modal del-modal">
+      <div class="modal-content">
+        <h4 class="modal-header">Lend Book</h4>
+            <div class="add-form">
+                <form class="book-add" method="post">
+                   {% csrf_token %}
+                   <style>select { display: block; }</style>
+                   {{ form }}
+                    
+                    <label for="id_borrowed_date">Date Borrowed: </label>
+                    <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ book.date_recieved }}" >
+                    <label for="id_due_date">Due Date: </label>
+                    <input id = "id_due_date" type="date" name="due_date" value="{{ current_due_date }}">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Lend Book
+                      <i class="mdi-content-send right"></i>
+                    </button>
+                </form> 
+                <a href="/home/" class="cancel">Cancel</a>
+            </div>
+          </div>
+        </div>
+
+
+
+
 <div><a class="waves-effect waves-light btn-large borrow btn tooltipped" data-position="right" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a></div> 
 {% endblock content %}

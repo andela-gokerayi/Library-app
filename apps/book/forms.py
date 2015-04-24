@@ -20,6 +20,6 @@ class LendBookForm(forms.ModelForm):
 
     class Meta:
         model = BookLease
-        borrower = forms.ModelMultipleChoiceField(queryset=Fellow.objects.all().order_by('name'))
-        fields = ['book', 'borrower', 'borrowed_date', 'return_date', 'due_date'] 
-        book = forms.ModelMultipleChoiceField(queryset=Book.objects.all())
+        # borrower = forms.ModelMultipleChoiceField(queryset=Fellow.objects.all().order_by('name'))
+        fields = ['book', 'borrower'] 
+        # book = forms.ModelMultipleChoiceField(queryset=Book.objects.all())

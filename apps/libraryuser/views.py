@@ -55,18 +55,3 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('home'))
 
-
-def get_fellow ():
-    url = 'http://skilltree.andela.co/api/v1/users'
-    payload = {
-        "candidates":
-        [
-            {
-                "firstname": user.first_name,
-                "lastname": user.last_name,
-                "email": user.email
-            }
-        ]
-    }
-
-    plum_data = plum.fetch_data(url, **payload)

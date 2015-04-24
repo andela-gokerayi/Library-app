@@ -7,9 +7,15 @@
             <div class="add-form">
                 <form class="book-add" method="post">
                    {% csrf_token %}
-                   <style>select { display: block; }</style>
+                   <!--<style>select { display: block; }</style>-->
                    {{ form }}
-                   <input type="submit">
+                    <label for="id_borrowed_date">Date Borrowed: </label>
+                    <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ current_borrowed_date }}">
+                    <label for="id_due_date">Due Date: </label>
+                    <input id = "id_due_date" type="date" name="due_date" value="{{ current_due_date }}">
+                   <button class="btn waves-effect waves-light" type="submit" name="action">Lend Book
+                  <i class="mdi-content-send right"></i>
+                </button>
                 </form> 
             </div>
         </div>

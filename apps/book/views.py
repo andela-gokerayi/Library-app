@@ -13,10 +13,15 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic.edit import DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext as _
+from django.views.generic.edit import FormMixin
+from django.views.generic.list import ListView
 
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
 from apps.book.forms import AddForm, LendBookForm, BookEditForm
+from django.views.generic.edit import FormView
+
 
 # Create your views here.
 

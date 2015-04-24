@@ -1,6 +1,7 @@
 from django.db import models
 # from django.db.models.manager import Manager
 from apps.libraryuser.models import StaffUser, Fellow
+from datetime import date
 
 
 class Book(models.Model):
@@ -28,7 +29,7 @@ class Book(models.Model):
 class BookLease(models.Model):
     book = models.ForeignKey(Book, related_name='book_leases')
     borrower = models.ForeignKey(Fellow)
-    borrowed_date = models.DateField(null=True)
+    borrowed_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True)
     due_date = models.DateField(null=True)
     returned = models.NullBooleanField()
