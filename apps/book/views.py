@@ -89,7 +89,7 @@ def borrow_book(request, id=None):
             form.save()
             session = request.session['status'] = 'borrow'
             messages.success(request, 'Book Lent out Successfully.')
-            return HttpResponseRedirect('/book-status/')
+            return HttpResponseRedirect('/home/')
     else:
         form.fields['book'].initial = book
 
