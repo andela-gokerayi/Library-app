@@ -16,16 +16,7 @@
             <th>BORROWER</th>
         </thead>
         <tbody>
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h2>{{ message }}</h2></li>
-                {% endfor %}
-                <li>
-                    <a href="/book-status/" class="grp-state-focus" class="addlink">Close</a>
-                </li>
-            </ul>
-            {% endif %}
+            
             {% for book in object_list %}  
                 <tr class='list'>
                     <td><a href="book-detail"><p class="truncate">{{book.book}}</a></p></td> 

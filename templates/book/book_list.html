@@ -13,6 +13,22 @@
     </div>
 {% block content %}
     <!--<a class="btn-floating btn-large waves-effect waves-light #26a69a add btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a>-->
+    <div id="message">  
+        {% if messages %}
+            <ul id="li">
+                {% for message in messages %}
+                    <div class="row">
+                        <div class="col s12 m5 fin">
+                            <div class="card-panel teal accent-2">
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h6>{{ message }}</h6></li>
+                            </div>   
+                        </div>  
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
     <div class="search-box">
         <form>
             <div class="input-field">
@@ -22,6 +38,7 @@
             </div>
         </form>
     </div>
+
 
     <div class="jobs-container">
         <table class="striped responsive hoverable">
@@ -43,9 +60,10 @@
                         {% if book.num_book_available >= 1 %}
                             <td><a href="/borrow/{{book.id}}" class="waves-effect waves-light" ><button>lend</button></a></td>
                         {% else %}
-                            <td><a href="/borrow/{{book.id}}" class="waves-effect waves-light disabled" ><button type="button" disabled>unavalable</button></a></td>
+                            <td><a href="#"><button type="button" disabled>unavalable</button></a></td>
                         {% endif %}
                     </tr>
+
                       <!-- Modal Structure -->
                       <!--<div id="modal{{book.id}}" class="modal">
                         <div class="modal-content">
@@ -81,3 +99,13 @@
 
 <div><a class="waves-effect waves-light btn-large borrow btn tooltipped" data-position="right" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a></div> 
 {% endblock content %}
+
+{% block local_js %}
+ <script>
+ $(document).ready(function(){
+      setTimeout(function() {
+           $('#message').fadeOut('fast');
+        }, 3000);
+});
+ </script>
+{% endblock %}

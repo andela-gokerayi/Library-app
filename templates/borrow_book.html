@@ -12,14 +12,13 @@
                     <label for="id_borrowed_date">Date Borrowed: </label>
                     <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ current_borrowed_date }}">
                     <label for="id_due_date">Due Date: </label>
-
-                    <input id = "id_due_date" type="date" name="due_date" value="{{ current_due_date }}">
+                    <input id = "id_due_date" type="date" name="due_date" value="{{ book.due_date_save }}">
                    <button class="btn waves-effect waves-light" type="submit" name="action">Lend Book
                   <i class="mdi-content-send right"></i>
                 </button>
                 </form> 
                 <div class="modal-footer">
-                  <a href="/home/" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                  <a href="/home/" class=" modal-action modal-close waves-effect waves-green btn-flat cancel">Cancel</a>
                 </div>
             </div>
         </div>
@@ -30,15 +29,27 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            $('select').material_select();
-            var now = new Date();
-            // var month = (now.getMonth() + 1);               
-            var day = now.getDate();
-            if(day < 14) 
-                day = "0" + day;
-            var today = now.getFullYear() + '-' + month + '-' + day;
-            $('#id_due_date').val(today);
+             var date = new Date()
+             var vfg = date.toISOString().substring(0, 10),
+             borrowed_date = document.querySelector('#id_borrowed_date');
+             borrowed_date.value = vfg;
+              
+             // var due_date = new Date()
+             due_date = date.setDate(date.getDate() + 14);
+
+             var dd = date.getDate();
+             var mm = date.getMonth() + 1;
+             var y = date.getFullYear();
+
+             if(mm < 10) 
+                mm = "0" + mm;
+             if(dd < 10) 
+                dd = "0" + dd;
+
+             var someFormattedDate = y + '-' + mm + '-' + dd;
+             // someFormattedDate.toISOString().substring(0, 10),
+             document.getElementById('id_due_date').value = someFormattedDate;
+
         });
     </script>
-
 {% endblock local_js %}
