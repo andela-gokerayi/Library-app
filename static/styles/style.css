@@ -12,6 +12,45 @@ nav ul {
   margin-top: 1%;
 }
 
+#message {
+  font: inherit;
+  /*width: 45px;*/
+  height: 50px;
+  margin-right: 200px !important;
+}
+
+.success {
+  min-width: 300px;
+}
+
+.row {
+  text-align: center;
+  min-width: 900px;
+}
+
+.fin {
+
+}
+
+#li {
+  margin-left: 40%;
+}
+
+.message-card {
+  height: 10px;
+  min-width: 45px;
+}
+
+/*.close {
+  width: 10px;
+  margin-left: 620px;
+}*/
+
+.card.small {
+  height: 25px !important;
+  width: 15%
+}
+
 .input-field {
   margin-left: 30%;
   margin-top: 50%;
@@ -72,7 +111,7 @@ nav ul {
   width: 75%;
 }
 
-.success {
+.successes {
   margin-top: 10% !important;
   width: 50%;
   margin-left: 25% !important;
