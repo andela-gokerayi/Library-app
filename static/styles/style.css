@@ -37,7 +37,11 @@ nav ul {
 }
 
 .cancel {
-  margin-left: 90%
+  margin-left: 170%;
+}
+
+.cancel-edit {
+  margin-left: 90%;
 }
 
 .del {

@@ -19,16 +19,16 @@ class HomeView(View):
         return render_to_response('base.html', locals())
 
 
-class BookIndexListView(ListView):
+# class BookIndexListView(ListView):
 
-    model = Book
+#     model = Book
 
-    def dispatch(self, *args, **kwargs):
-        return super(BookIndexListView, self).dispatch(*args, **kwargs)
+#     def dispatch(self, *args, **kwargs):
+#         return super(BookIndexListView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(BookIndexListView, self).get_context_data(**kwargs)
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super(BookIndexListView, self).get_context_data(**kwargs)
+#         return context
 
 
 def login (request):
@@ -46,7 +46,7 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect(reverse('book-index'))
+        return HttpResponseRedirect(reverse('book-list'))
 
     else:
         return HttpResponseRedirect(reverse('login'))

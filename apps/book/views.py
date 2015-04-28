@@ -16,6 +16,9 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormMixin
 from django.views.generic.list import ListView
+from django.contrib import messages
+from django.views.generic import View
+
 
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
@@ -24,17 +27,23 @@ from django.views.generic.edit import FormView
 
 
 # Create your views here.
-
-
+        
 class BookListView(ListView):
-
-    model = BookLease
-
-    def dispatch(self, *args, **kwargs):
-        return super(BookListView, self).dispatch(*args, **kwargs)
+    model = Book
+    # paginate_by = 25
 
     def get_context_data(self, **kwargs):
         context = super(BookListView, self).get_context_data(**kwargs)
+        context['form'] = LendBookForm()
+        return context
+
+
+class BookLeaseListView(ListView):
+
+    model = BookLease
+    def get_context_data(self, **kwargs):
+        context = super(BookLeaseListView, self).get_context_data(**kwargs)
+        # context['form'] = LendBookForm()
         return context
 
 
@@ -44,7 +53,6 @@ class BookDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
-        print context
         return context
 
 
@@ -73,39 +81,31 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
 @login_required
 def borrow_book(request, id=None):
     user = request.user
-    print user
+    book = Book.objects.get(id=id)
+    form = LendBookForm(request.POST or None)
 
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = LendBookForm(request.POST)
-        print form
-        # check whether it's valid:
         if form.is_valid():
             form.save()
-            # ...
-            # redirect to a new URL:
+            session = request.session['status'] = 'borrow'
+            messages.success(request, 'Book Lent out Successfully.')
             return HttpResponseRedirect('/book-status/')
-
-    
     else:
-        form = LendBookForm()
+        form.fields['book'].initial = book
 
-    return render(request, 'borrow_book.html', {'form': form})
+    return render(request, 'borrow_book.html', locals(), context_instance=RequestContext(request))
 
 
 def book_delete(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    print book    
+    book = get_object_or_404(Book, pk=pk)   
     # if request.method=='POST':
     if book:
         book.delete()
     return HttpResponseRedirect('/home/')
 
 
-
 def edit_book(request, id=None):
     book = Book.objects.get(id = id)
-    print book.__dict__, "The Book"
     book.pk = id
 
     if request.method == 'POST':
@@ -113,20 +113,13 @@ def edit_book(request, id=None):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Book Lent successfully.')
 
             return render(request, "updated.html", locals())
     else:
         form = BookEditForm(instance=book)
 
     return render(request, 'book_edit.html', locals(), context_instance = RequestContext(request))
-
-
-
-
-
-
-
-
 
 
 

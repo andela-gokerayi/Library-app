@@ -12,13 +12,33 @@
                     <label for="id_borrowed_date">Date Borrowed: </label>
                     <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ current_borrowed_date }}">
                     <label for="id_due_date">Due Date: </label>
+
                     <input id = "id_due_date" type="date" name="due_date" value="{{ current_due_date }}">
                    <button class="btn waves-effect waves-light" type="submit" name="action">Lend Book
                   <i class="mdi-content-send right"></i>
                 </button>
                 </form> 
+                <div class="modal-footer">
+                  <a href="/home/" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                </div>
             </div>
         </div>
     </div>   
 </div>
 {% endblock content %}
+{% block local_js %}
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').material_select();
+            var now = new Date();
+            // var month = (now.getMonth() + 1);               
+            var day = now.getDate();
+            if(day < 14) 
+                day = "0" + day;
+            var today = now.getFullYear() + '-' + month + '-' + day;
+            $('#id_due_date').val(today);
+        });
+    </script>
+
+{% endblock local_js %}

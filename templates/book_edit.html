@@ -28,12 +28,12 @@
             <input id = "id_category" type="text" name="category" value="{{ book.category }}">
             {{form.date_recieved.errors}}
             <label for="id_date_recieved">Date Recieved: </label>
-            <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ book.date_recieved }}">
+            <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ date_recieved }}">
             <div>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes
                   <i class="mdi-content-send right"></i>
                 </button>
-                <a href="/home/" class="cancel">Cancel</a>  
+                <a href="/home/" class="cancel-edit">Cancel</a>  
             </div>
           </form>
         </div>
