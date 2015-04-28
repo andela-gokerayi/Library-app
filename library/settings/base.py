@@ -127,4 +127,3 @@ STATICFILES_DIRS = (
 SKILLTREE_API_URL = 'http://skilltree.andela.co/api/v1/users'
 SKILLTREE_API_PAGE = 1-20
 
-
