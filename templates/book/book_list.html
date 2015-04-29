@@ -12,15 +12,20 @@
         </form>
     </div>
 {% block content %}
-    <!--<a class="btn-floating btn-large waves-effect waves-light #26a69a add btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book" href="{% url 'add-book' %}"><i class="mdi-content-add"></i></a>-->
+
+
+{% if form %}
+    {{form.borrower.value}}
+{% endif %}
+
     <div id="message">  
         {% if messages %}
             <ul id="li">
                 {% for message in messages %}
                     <div class="row">
                         <div class="col s12 m5 fin">
-                            <div class="card-panel teal accent-2">
-                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h6>{{ message }}</h6></li>
+                            <div class="card-panel teal accent-3 teal-card">
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h6 class="main-message">{{book.title}} {{ message }} {{form.borrower.value}}</h6></li>
                             </div>   
                         </div>  
                     </div>
@@ -28,7 +33,6 @@
             </ul>
         {% endif %}
     </div>
-
     <div class="search-box">
         <form>
             <div class="input-field">

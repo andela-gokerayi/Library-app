@@ -33,8 +33,11 @@ class BookListView(ListView):
     # paginate_by = 25
 
     def get_context_data(self, **kwargs):
+        book_id = self.request.session.get('book_id')
+        book = Book.objects.get(pk=book_id)
         context = super(BookListView, self).get_context_data(**kwargs)
         context['form'] = LendBookForm()
+        context['book'] = book
         return context
 
 
@@ -86,9 +89,12 @@ def borrow_book(request, id=None):
 
     if request.method == 'POST':
         if form.is_valid():
+            book_id = request.POST.get('book')
+            book = Book.objects.get(pk=book_id)
+            request.session['book_id'] = book_id
             form.save()
             session = request.session['status'] = 'borrow'
-            messages.success(request, 'Book Lent out Successfully.')
+            messages.success(request, 'Lent out Successfully')
             return HttpResponseRedirect('/home/')
     else:
         form.fields['book'].initial = book
@@ -113,7 +119,6 @@ def edit_book(request, id=None):
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Book Lent successfully.')
 
             return render(request, "updated.html", locals())
     else:

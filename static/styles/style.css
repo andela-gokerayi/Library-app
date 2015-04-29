@@ -41,10 +41,16 @@ nav ul {
   min-width: 45px;
 }
 
-/*.close {
-  width: 10px;
-  margin-left: 620px;
-}*/
+.teal-card {
+  background-color: #64ffda !important;
+  height: 10px;
+  padding-top: 10px !important;
+  min-width: 500px;
+}
+
+.main-message {
+  margin: 0;
+}
 
 .card.small {
   height: 25px !important;
@@ -141,6 +147,8 @@ h4 {
 .book-detail {
   margin-left: 25% !important;
   line-height: 25px;
+  padding-right: 150px !important;
+  width: 60%;
 }
 
 h1 {
@@ -200,6 +208,10 @@ select {
   color: #fff;
 }
 
-.container {
+.footer-container {
   text-align: center;
+  margin-top: 25px;
+  position: absolute;
+  margin-left: 40%;
 }
+  
