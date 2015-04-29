@@ -17,10 +17,9 @@ class SkillTree():
             :param kwargs: Any other extra keyword parameters
         '''
         url = url or self.url
-        print url
-        params = {'page': 2, 'per_page':100}
-        print params
+        params = {'page': 1}
         response = requests.get(url, params=params, data=json.dumps(kwargs))
+        
         return response.json()
 
 
