@@ -18,19 +18,11 @@ class SkillTree():
         '''
         url = url or self.url
         print url
+        params = {'page': 2, 'per_page':100}
+        print params
+        response = requests.get(url, params=params, data=json.dumps(kwargs))
+        return response.json()
 
-        data = []
-        for p in range(1, 20 + 1):
-
-            response = requests.get(url %p, data=json.dumps(kwargs))
-            try:
-                return data.append(response.json()['data'])
-            except ValueError, e:
-                return e
-            break
-        return 'done'
-
-            
 
 def get_fellow_info():
     from apps.libraryuser.models import Fellow
