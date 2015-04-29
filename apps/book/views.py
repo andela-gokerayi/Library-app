@@ -94,7 +94,7 @@ def borrow_book(request, id=None):
             request.session['book_id'] = book_id
             form.save()
             session = request.session['status'] = 'borrow'
-            messages.success(request, 'Lent out Successfully')
+            messages.success(request, 'Lent out Successfully to.')
             return HttpResponseRedirect('/home/')
     else:
         form.fields['book'].initial = book
