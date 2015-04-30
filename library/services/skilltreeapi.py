@@ -1,7 +1,7 @@
 import requests
 import json
 from django.http import HttpResponse
-from library.settings.base import SKILLTREE_API_URL, SKILLTREE_API_PAGE
+from library.settings.base import SKILLTREE_API_URL
 from library.core.utils import to_dict
 
 
@@ -17,10 +17,16 @@ class SkillTree():
             :param kwargs: Any other extra keyword parameters
         '''
         url = url or self.url
-        params = {'page': 2}
-        response = requests.get(url, params=params, data=json.dumps(kwargs))
-        
-        return response.json()
+        result = []
+        page = 1
+        while True:
+            params = {'page': page}
+            response = requests.get(url, params=params, data=json.dumps(kwargs))
+            if requests_status_code == 404 or not response.json():
+                break
+            result.extend(response.json())
+            page += 1        
+        return result
 
 
 def get_fellow_info():

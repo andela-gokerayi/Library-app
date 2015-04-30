@@ -1,5 +1,7 @@
 {% extends 'index.html' %}
 {% load staticfiles %}
+{% load endless %}
+
 
 {% block title %}
     Andela Library
@@ -16,7 +18,7 @@
             <th>BORROWER</th>
         </thead>
         <tbody>
-            
+            {% paginate object_list %}
             {% for book in object_list %}  
                 <tr class='list'>
                     <td><a href="book-detail"><p class="truncate">{{book.book}}</a></p></td> 
@@ -24,6 +26,12 @@
                     <td>{{book.borrower}}</td>
                 </tr>
             {% endfor %}
+            {% get_pages %}
+{{ pages.current_start_index }}-{{ pages.current_end_index }} of
+{{ pages.total_count }}.
+<div class="page">
+    {{ pages.previous }} {{ pages.next }}
+</div>
        
         </div>
         </tbody>

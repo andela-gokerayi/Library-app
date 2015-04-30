@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'endless_pagination',
     'envvars',
     'apps.book',
     'apps.libraryuser',
@@ -86,6 +87,12 @@ TEMPLATES = [
     },
 ]
 
+# from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+# TEMPLATE_CONTEXT_PROCESSORS += (
+#     'django.core.context_processors.request',
+# )
+
+
 WSGI_APPLICATION = 'library.wsgi.application'
 
 
@@ -125,5 +132,7 @@ STATICFILES_DIRS = (
 )
 
 SKILLTREE_API_URL = 'http://skilltree.andela.co/api/v1/users'
-SKILLTREE_API_PAGE = 1-20
-
+ENDLESS_PAGINATION_PREVIOUS_LABEL = 'previous'
+ENDLESS_PAGINATION_NEXT_LABEL = 'next'
+ENDLESS_PAGINATION_FIRST_LABEL = 'first-page'
+ENDLESS_PAGINATION_LAST_LABEL = 'last-page'
