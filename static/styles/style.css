@@ -10,6 +10,7 @@ nav ul {
   width: 60%;
   /*margin-left: 10%;*/
   margin-top: 1%;
+  height: 20px;
 }
 
 #message {
@@ -26,10 +27,6 @@ nav ul {
 .row {
   text-align: center;
   min-width: 900px;
-}
-
-.fin {
-
 }
 
 #li {
@@ -57,9 +54,24 @@ nav ul {
   width: 15%
 }
 
+.search-box .search-form {
+  height: 20px;
+}
+
 .input-field {
   margin-left: 30%;
   margin-top: 50%;
+  height: 20px;
+}
+
+.mdi-action-search{
+  line-height: 2px;
+}
+
+.jobs-container {
+  margin-top: 40px;
+  margin-left: 30px;
+  padding-right: 26px;
 }
 
 .book-add {
@@ -76,6 +88,7 @@ nav ul {
   margin-left: 90%;
   margin-top: 20px;
 }
+
 .add-form {
   width: 50% !important;
   margin-left: 25%;
@@ -90,8 +103,9 @@ nav ul {
 }
 
 .del {
-  margin-left: 112%;
-  margin-top: 20px;
+  margin-top: 43px;
+  float: right;
+  margin-right: -140px !important;
 }
 
 .del-modal {
@@ -144,11 +158,21 @@ h4 {
   max-height: 100%;
 }
 
+.book-detail-head{
+  height: 25px;
+  line-height: 0 !important;
+}
+
 .book-detail {
   margin-left: 25% !important;
   line-height: 25px;
   padding-right: 150px !important;
   width: 60%;
+  /*margin-top: 84px;*/
+}
+
+.book-detail-card {
+  margin-top: 57px !important;
 }
 
 h1 {
@@ -182,7 +206,13 @@ p {
 }
 
 .borrow {
-  margin-top: 150px;
+  margin-right: 26px;
+  float: right;
+  margin-top: 26px;
+}
+
+#add-button {
+  height: 50px;
 }
 
 select { 
@@ -197,7 +227,7 @@ select {
   width:100%;
   height:60px;
   position:relative;
-  /*margin-top: 70px;*/
+  margin-top: 60px;
   bottom:0;
   left:0;
   background-color: #5A0206;
