@@ -13,29 +13,30 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic.edit import DeleteView
 from django.core.urlresolvers import reverse_lazy
-from django.utils.translation import ugettext as _
 from django.views.generic.edit import FormMixin
 from django.views.generic.list import ListView
 from django.contrib import messages
 from django.views.generic import View
+from django.views.generic.edit import FormView
 
 
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
 from apps.book.forms import AddForm, LendBookForm, BookEditForm
-from django.views.generic.edit import FormView
+from library.services import skilltreeapi
 
 
 # Create your views here.
         
 class BookListView(ListView):
     model = Book
-    # paginate_by = 25
 
     def get_context_data(self, **kwargs):
         book_id = self.request.session.get('book_id')
+        borrower = self.request.session.get('form.borrower')
         context = super(BookListView, self).get_context_data(**kwargs)
         context['form'] = LendBookForm()
+        # context['form'] = form.borrower
         if book_id:
             book = Book.objects.get(pk=book_id)
             context['book'] = book
@@ -60,7 +61,7 @@ class BookDetailView(DetailView):
         return context
 
 
-def get_book(request, id=None, template_name = 'book_new.html' ):
+def get_book(request, id=None, template_name = 'book_new.html'):
     user = request.user
 
     if id:
@@ -69,7 +70,6 @@ def get_book(request, id=None, template_name = 'book_new.html' ):
     if request.POST:
 
         form = AddForm(request.POST)
-    # check whether form is valid
 
         if form.is_valid():
             form.save()
@@ -95,7 +95,7 @@ def borrow_book(request, id=None):
             request.session['book_id'] = book_id
             form.save()
             session = request.session['status'] = 'borrow'
-            messages.success(request, 'Lent out Successfully to.')
+            messages.success(request, 'Lent out Successfully to')
             return HttpResponseRedirect('/home/')
     else:
         form.fields['book'].initial = book
@@ -108,6 +108,8 @@ def book_delete(request, pk):
     # if request.method=='POST':
     if book:
         book.delete()
+        session = request.session['status'] = 'delete'
+        messages.warning(request, 'has been deleted')
     return HttpResponseRedirect('/home/')
 
 
