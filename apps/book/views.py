@@ -36,7 +36,7 @@ class BookListView(ListView):
         borrower = self.request.session.get('form.borrower')
         context = super(BookListView, self).get_context_data(**kwargs)
         context['form'] = LendBookForm()
-        context['form'] = form.borrower
+        # context['form'] = form.borrower
         if book_id:
             book = Book.objects.get(pk=book_id)
             context['book'] = book
