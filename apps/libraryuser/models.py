@@ -3,6 +3,7 @@ from django.contrib.auth.models import UserManager, User as DjangoUser
 import requests
 import json
 from django.http import HttpResponse
+
 from library.settings.base import SKILLTREE_API_URL, SKILLTREE_API_KEY
 from library.core.utils import to_dict
 

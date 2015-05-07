@@ -11,7 +11,7 @@
     </form>
 </div>
 {% block content %}
-
+{{form.borrower.initial}}
         <div id="message">  
             {% if messages %}
                 <ul id="li">
@@ -52,15 +52,19 @@
             <tbody>
                 {% for book in object_list %}   
                     <tr class='list'>
-                        <td><a href="/detail/{{book.id}}"><p class="truncate">{{book.title}}</p></a></td>
+                        <td><a href="/detail/{{book.id}}"><p class="truncate book-name"><b>{{book.title}}</b></p></a></td>
                         <td>{{book.author}}</td>
                         <td>{{book.category}}</td>
                         <td>{{book.quantity}}</td>
                         <td>{{book.num_book_available}}</td>
                         {% if book.num_book_available >= 1 %}
-                            <td><a href="/borrow/{{book.id}}" class="waves-effect waves-light" ><button>lend</button></a></td>
+                            <td>
+                                <a href="/borrow/{{book.id}}" class="btn-floating btn-small waves-effect waves-light modal-trigger tooltipped" data-tooltip="Lend this Book" data-position="left">
+                                  <i class="fa fa-share"></i>
+                                </a>
+                            </td>
                         {% else %}
-                            <td><a href="#"><button type="button" disabled>unavalable</button></a></td>
+                            <td><p type="text" disabled>unavalable</p></a></td>
                         {% endif %}
                     </tr>
 

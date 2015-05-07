@@ -23,34 +23,19 @@ from django.views.generic.edit import FormView
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
 from apps.book.forms import AddForm, LendBookForm, BookEditForm
-from library.services import skilltreeapi
 
-
-# Create your views here.
         
 class BookListView(ListView):
     model = Book
 
     def get_context_data(self, **kwargs):
         book_id = self.request.session.get('book_id')
-        borrower = self.request.session.get('form.borrower')
         context = super(BookListView, self).get_context_data(**kwargs)
         context['form'] = LendBookForm()
-        # context['form'] = form.borrower
         if book_id:
             book = Book.objects.get(pk=book_id)
             context['book'] = book
         return context
-
-
-class BookLeaseListView(ListView):
-
-    model = BookLease
-    def get_context_data(self, **kwargs):
-        context = super(BookLeaseListView, self).get_context_data(**kwargs)
-        # context['form'] = LendBookForm()
-        return context
-
 
 class BookDetailView(DetailView):
 
@@ -61,24 +46,34 @@ class BookDetailView(DetailView):
         return context
 
 
+class BookLeaseListView(ListView):
+
+    model = BookLease
+    def get_context_data(self, **kwargs):
+        context = super(BookLeaseListView, self).get_context_data(**kwargs)
+        return context
+
+
+class BookLeaseDetailView(DetailView):
+
+    model = BookLease
+
+    def get_context_data(self, **kwargs):
+        context = super(BookLeaseDetailView, self).get_context_data(**kwargs)
+        return context
+
+
 def get_book(request, id=None, template_name = 'book_new.html'):
     user = request.user
-
     if id:
         book = get_object_or_404 (Book, pk=id)
-
     if request.POST:
-
         form = AddForm(request.POST)
-
         if form.is_valid():
             form.save()
-
             return render(request, "thank_you.html", locals())
-
     else:
         form = AddForm()
-
     return render(request, 'book_new.html', {'form': form,},context_instance = RequestContext(request))
 
 
@@ -94,8 +89,8 @@ def borrow_book(request, id=None):
             book = Book.objects.get(pk=book_id)
             request.session['book_id'] = book_id
             form.save()
-            session = request.session['status'] = 'borrow'
-            messages.success(request, 'Lent out Successfully to')
+            # request.session['borrower'] = borrower
+            messages.success(request, 'Lent out Successfully')
             return HttpResponseRedirect('/home/')
     else:
         form.fields['book'].initial = book
@@ -105,7 +100,6 @@ def borrow_book(request, id=None):
 
 def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)   
-    # if request.method=='POST':
     if book:
         book.delete()
         session = request.session['status'] = 'delete'
@@ -114,22 +108,14 @@ def book_delete(request, pk):
 
 
 def edit_book(request, id=None):
-    book = Book.objects.get(id = id)
-    book.pk = id
+    book = Book.objects.get(id=id)
 
     if request.method == 'POST':
         form = BookEditForm(request.POST, instance=book)
-
         if form.is_valid():
             form.save()
-
             return render(request, "updated.html", locals())
-    else:
-        form = BookEditForm(instance=book)
-
+    # else:
+    #     # form = BookEditForm(instance=book)
+    #     form.fields['book'].initial=book
     return render(request, 'book_edit.html', locals(), context_instance = RequestContext(request))
-
-
-
-
-

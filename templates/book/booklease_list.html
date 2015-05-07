@@ -8,21 +8,20 @@
 {% endblock title %}
         
 {% block content %}
-  
 <div class="jobs-container">
 
     <table class="striped responsive hoverable">
         <thead>
             <th>TITLE</th>
-            <th>AVAILABLE</th>
+            <th>DUE DATE</th>
             <th>BORROWER</th>
         </thead>
         <tbody>
             {% paginate object_list %}
             {% for book in object_list %}  
                 <tr class='list'>
-                    <td><a href="book-detail"><p class="truncate">{{book.book}}</a></p></td> 
-                    <td>{{book.num_book_available}}</td>
+                    <td><a href="/book-detail/{{book.id}}"><p class="truncate">{{book.book}}</a></p></td> 
+                    <td>{{book.due_date}}</td>
                     <td>{{book.borrower}}</td>
                 </tr>
             {% endfor %}

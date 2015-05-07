@@ -1,8 +1,7 @@
 from django.db import models
-# from django.db.models.manager import Manager
-from apps.libraryuser.models import StaffUser, Fellow
 import datetime
 
+from apps.libraryuser.models import StaffUser, Fellow
 
 
 class Book(models.Model):
@@ -15,8 +14,6 @@ class Book(models.Model):
     category = models.CharField(max_length=50)
 
     def get_num_available_book(self):
-
-        # book = Book.objects.get(id=id)
         total_leased = self.book_leases.all().count()
         available = self.quantity - total_leased
         return available
@@ -35,8 +32,5 @@ class BookLease(models.Model):
     due_date = models.DateTimeField(null=True)
     returned = models.NullBooleanField()
 
-
     def __unicode__(self): 
         return '{}'.format(self.book)
-
- 

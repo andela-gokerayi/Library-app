@@ -1,3 +1,26 @@
+.login-card {
+   margin-left: 25% !important;
+}
+
+.login-card-form {
+  margin-top: 12% !important;
+}
+
+.login-form {
+  height: 250px;
+  margin-left: 75px !important
+}
+
+.login-botton {
+  margin-top: 30px;
+  width: 70%;
+
+}
+.username .password {
+  width: 30% !important;
+  margin-right:20px;
+}
+
 .navbar {
   background-color: #5A0206 !important;
 }
@@ -26,7 +49,7 @@ nav ul {
 
 .row {
   text-align: center;
-  min-width: 900px;
+  min-width: 90px;
 }
 
 #li {
@@ -78,9 +101,31 @@ nav ul {
   width: 450px;
 }
 
-.image {
-  height: 520px !important;
-  width: 100%;
+
+.home-body {
+    height: 250px;
+    width: 99vw;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),url('../images/book2.jpg') no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+    width: 100vw;
+    text-align: center;
+    height: 90.8vh;
+    font-family: Raleway, sans-serif !important;
+}
+
+.flow-text {
+  color: #fff;
+  font-style: italic;
+  padding-top: 12%;
+  font-size: 30px !important;
+}
+
+.visit {
+  width: 231px;
 }
 
 .add {
@@ -94,8 +139,8 @@ nav ul {
   margin-left: 25%;
 }
 
-.cancel {
-  /*margin-left: 170%;*/
+.add-button {
+  float: right;
 }
 
 .lend-button {
@@ -111,9 +156,10 @@ nav ul {
 }
 
 .del {
+  color:red !important;
   margin-top: 43px;
   float: right;
-  margin-right: -140px !important;
+  margin-right: 17px !important;
 }
 
 .del-modal {
@@ -157,9 +203,6 @@ h4 {
   line-height: 3rem !important;
 }
 
-.login-card {
-   margin-left: 25% !important;
-}
 
 .books {
   margin-top: 7%;
@@ -167,8 +210,9 @@ h4 {
 }
 
 .book-detail-head{
-  height: 25px;
+    font-size: 6.2rem !important;
   line-height: 0 !important;
+  margin: 0 0 0 0 !important
 }
 
 .book-detail {
@@ -177,6 +221,22 @@ h4 {
   padding-right: 150px !important;
   width: 60%;
   /*margin-top: 84px;*/
+}
+
+.book-detail-title {
+  color: #fff !important;
+}
+
+.detail-nav {
+  background: #5A0206;
+  height: 40px;
+  width: 100%;
+}
+
+.back-to-list {
+  margin-top: 43px !important;
+  color: black !important;
+  margin-right: 17px !important;
 }
 
 .page{
@@ -193,9 +253,9 @@ h1 {
 }
 
 .card-title {
-  font-weight: 400 !important;
+  font-weight: 300 !important;
   font-size: 30px !important;
-  color: red;
+  /*color: red;*/
 }
 
 p {
@@ -211,6 +271,7 @@ p {
 
 .book-action {
   margin: 0 !important;
+  color: black !important;
 }
 
 .card-content {
@@ -243,6 +304,7 @@ select {
   bottom:0;
   left:0;
   background-color: #5A0206;
+  z-index: 2;
 }
 
 .footer-text {
@@ -256,4 +318,11 @@ select {
   position: absolute;
   margin-left: 40%;
 }
-  
+
+.book-name {
+  color: black;
+}
+
+.btn-flat:hover {
+  background-color: rgba(158,158,158,0.2);
+}
