@@ -27,9 +27,9 @@ class Book(models.Model):
 class BookLease(models.Model):
     book = models.ForeignKey(Book, related_name='book_leases')
     borrower = models.ForeignKey(Fellow)
-    borrowed_date = models.DateField(null=True)
-    return_date = models.DateField(null=True)
-    due_date = models.DateTimeField(null=True)
+    borrowed_date = models.DateField(default=datetime.datetime.now)
+    return_date = models.DateField(default=datetime.datetime.now)
+    due_date = models.DateField(default=datetime.datetime.now)
     returned = models.NullBooleanField()
 
     def __unicode__(self): 

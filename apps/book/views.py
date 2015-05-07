@@ -102,7 +102,6 @@ def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)   
     if book:
         book.delete()
-        session = request.session['status'] = 'delete'
         messages.warning(request, 'has been deleted')
     return HttpResponseRedirect('/home/')
 
