@@ -22,7 +22,7 @@
         <nav class = "navbar">
             <div class="container">
                 <div class="wrapper">
-                <a href="http://cooltext.com"><img src="http://images.cooltext.com/4232022.png" width="112" height="80" alt="folay" /></a>
+                <a href="{% url 'book-list' %}"><img src="http://images.cooltext.com/4232022.png" width="112" height="80" alt="folay" /></a>
                     <ul>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'book-list' %}">Home</a></li>
