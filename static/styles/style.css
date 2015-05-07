@@ -29,10 +29,25 @@ html, body {
 
 .navbar {
   background-color: #5A0206 !important;
+  line-height: 7px;
 }
 
 nav ul {
     margin-right: -13% !important;
+}
+
+#folay-wrapper {
+  padding-top: 20px;
+}
+
+#folay {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 73px;
+  font-size: 23px;
+  line-height: 0;
+  font-family: sans-serif;
 }
 
 .drop-down a {
