@@ -58,16 +58,14 @@ nav ul {
 
 #filter {
   width: 60%;
-  /*margin-left: 10%;*/
   margin-top: 1%;
   height: 20px;
 }
 
 #message {
   font: inherit;
-  /*width: 45px;*/
   height: 50px;
-  margin-right: 200px !important;
+  margin-right: 324px !important;
 }
 
 .success {
@@ -137,7 +135,6 @@ nav ul {
   width: 450px;
 }
 
-
 .home-body {
     background: linear-gradient(
       rgba(0, 0, 0, 0.6),
@@ -182,7 +179,6 @@ nav ul {
 }
 
 .cancel-edit {
-  /*margin-left: 90%;*/
 }
 
 .edit-button {
@@ -202,8 +198,6 @@ nav ul {
 
 .modal-content {
   margin-right: 150px !important;
-  /*margin-bottom: 50% !important;*/
-  /*text-align: center;*/
 }
 
 .modal-header {
@@ -238,16 +232,23 @@ h4 {
   line-height: 3rem !important;
 }
 
-
 .books {
   margin-top: 7%;
   max-height: 100%;
 }
 
-.book-detail-head{
+.book-detail-head {
   font-size: 6.2rem !important;
   line-height: 0 !important;
-  margin: 0 0 0 0 !important
+  margin: 0 0 0 0 !important;
+}
+
+.booklease-detail-head {
+  font-size: 6.2rem !important;
+  line-height: 0 !important;
+  margin: 0 0 0 0 !important;
+  padding-top: 23px;
+  padding-bottom: 70px;
 }
 
 .book-detail {
@@ -255,7 +256,6 @@ h4 {
   line-height: 25px;
   padding-right: 150px !important;
   width: 60%;
-  /*margin-top: 84px;*/
 }
 
 .book-detail-title {
@@ -279,7 +279,7 @@ h4 {
 }
 
 .book-detail-card {
-  margin-top: 57px !important;
+  margin-top: 25px !important;
 }
 
 h1 {
@@ -289,12 +289,17 @@ h1 {
 
 .card-title {
   font-weight: 300 !important;
-  font-size: 30px !important;
-  /*color: red;*/
+  font-size: 25px !important;
+}
+
+.booklease-card-title {
+  font-weight: 400 !important;
+  font-size: 35px !important;
+  color: black !important;
+  margin-left: 119px;
 }
 
 p {
-  /*line-height: 1.5rem;*/
   padding: 5px;
 }
 

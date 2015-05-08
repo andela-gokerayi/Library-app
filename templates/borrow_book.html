@@ -7,7 +7,6 @@
             <div class="add-form">
                 <form class="book-add" method="post">
                    {% csrf_token %}
-                   <!--<style>select { display: block; }</style>-->
                    {{ form }}
                     <label for="id_borrowed_date">Date Borrowed: </label>
                     <input id = "id_borrowed_date" type="date" name="borrowed_date" value="{{ current_borrowed_date }}">
@@ -30,9 +29,9 @@
     <script type="text/javascript">
         $(document).ready(function() {
              var date = new Date()
-             var vfg = date.toISOString().substring(0, 10),
+             var lend_date = date.toISOString().substring(0, 10),
              borrowed_date = document.querySelector('#id_borrowed_date');
-             borrowed_date.value = vfg;
+             borrowed_date.value = lend_date;
               
              // var due_date = new Date()
              due_date = date.setDate(date.getDate() + 14);
@@ -47,7 +46,6 @@
                 dd = "0" + dd;
 
              var someFormattedDate = y + '-' + mm + '-' + dd;
-             // someFormattedDate.toISOString().substring(0, 10),
              document.getElementById('id_due_date').value = someFormattedDate;
 
         });

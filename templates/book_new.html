@@ -28,7 +28,7 @@
             <input id = "id_category" type="text" name="category" value="{{ current_category }}">
             {{form.date_recieved.errors}}
             <label for="id_date_recieved">Date Recieved: </label>
-            <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ current_date_recieved }}">
+            <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ book.date_recieved }}">
             <div>
                 <button class="btn waves-effect waves-light add-button" type="submit" name="action">Add Book
                   <i class="mdi-content-send right"></i>
@@ -41,3 +41,15 @@
     </div>  
 </div>
 {% endblock content %}
+
+{% block local_js %}
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+             var date = new Date()
+             var get_book_date = date.toISOString().substring(0, 10),
+             recieve = document.querySelector('#id_date_recieved');
+             recieve.value = get_book_date;
+        });
+    </script>
+{% endblock local_js %}

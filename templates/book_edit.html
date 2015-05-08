@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
+
 <div class="col s12 m3 l12 login-card">
     <div class="card add-book-card">
         <div class="card-content">
@@ -7,7 +8,8 @@
         <div class="add-form">
           <form class="book-add" method="post">
           {% csrf_token %}
-            <input type="hidden" name="id" value="{{book.id}}" />
+          {{form}}
+            <!--<input type="hidden" name="id" value="{{book.id}}" />
             {{form.title.errors}}
             <label for="id_title">Book Title: </label>
             <input id = "id_title" type="text" name="title" value="{{ book.title }}">
@@ -25,10 +27,8 @@
             <input id = "id_isbn_number" type="text" name="isbn_number" value="{{ book.isbn_number }}">
             {{form.category.errors}}
             <label for="id_category">Book Category: </label>
-            <input id = "id_category" type="text" name="category" value="{{ book.category }}">
-            {{form.date_recieved.errors}}
-            <label for="id_date_recieved">Date Recieved: </label>
-            <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ book.date_recieved }}">
+            <input id = "id_category" type="text" name="category" value="{{ book.category }}">-->
+
             <div>
                 <button class="btn waves-effect waves-light edit-button" type="submit" name="action">Save Changes
                   <i class="mdi-content-send right"></i>

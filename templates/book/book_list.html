@@ -8,7 +8,7 @@
                 {% for message in messages %}
                     <div class="row">
                         <div class="col s12 m5 fin">
-                            <div class="card-panel teal accent-3 teal-card">
+                            <div class="card-panel #26a69a accent-3 teal-card">
                                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h6 class="main-message">{{book.title}} {{ message }}</h6></li>
                             </div>   
                         </div>  
@@ -55,8 +55,8 @@
  <script>
  $(document).ready(function(){
       setTimeout(function() {
-           $('#message').fadeOut('fast');
-        }, 3000);
+           $('#message').fadeOut('slow');
+        }, 1000);
 });
  </script>
 {% endblock %}

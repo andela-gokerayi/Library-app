@@ -114,7 +114,6 @@ def edit_book(request, id=None):
         if form.is_valid():
             form.save()
             return render(request, "updated.html", locals())
-    # else:
-    #     # form = BookEditForm(instance=book)
-    #     form.fields['book'].initial=book
+    else:
+        form = BookEditForm(instance=book)
     return render(request, 'book_edit.html', locals(), context_instance = RequestContext(request))
