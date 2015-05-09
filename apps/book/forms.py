@@ -24,5 +24,9 @@ class LendBookForm(ModelForm):
 
     class Meta:
         model = BookLease
-        fields = ['book', 'borrower'] 
+        fields = ['book', 'borrower', 'borrowed_date', 'due_date'] 
+        widgets = {
+            'borrowed_date': DateInput(attrs={'type': 'date', 'class': 'datepicker'}, format='%Y-%m-%d'),
+            'due_date': DateInput(attrs={'type': 'date', 'class': 'datepicker'}, format='%Y-%m-%d'),
+        }
 
