@@ -8,26 +8,26 @@
           <form class="book-add" method="post">
           {% csrf_token %}
             <input type="hidden" name="id" value="{{book.id}}" />
-            {{form.title.errors}}
             <label for="id_title">Book Title: </label>
+            {{form.title.errors}}
             <input id = "id_title" type="text" name="title" value="{{ current_title }}">
-            {{form.quantity.errors}}
             <label for="id_quantity">Book Quantity: </label>
+            {{form.quantity.errors}}
             <input id = "id_quantity" type="number" name="quantity" value="{{ current_quantity }}">
-            {{form.author.errors}}
             <label for="id_author">Book Author: </label>
+            {{form.author.errors}}
             <input id = "id_author" type="text" name="author" value="{{ current_author }}">
-            {{form.source.errors}}
             <label for="id_source">Source Name: </label>
+            {{form.source.errors}}
             <input id = "id_source" type="text" name="source" value="{{ current_source }}">
-            {{form.isbn_number.errors}}
             <label for="id_isbn_number">Books ISBN: </label>
+            {{form.isbn_number.errors}}
             <input id = "id_isbn_number" type="text" name="isbn_number" value="{{ current_isbn_number }}">
-            {{form.category.errors}}
             <label for="id_category">Book Category: </label>
+            {{form.category.errors}}
             <input id = "id_category" type="text" name="category" value="{{ current_category }}">
-            {{form.date_recieved.errors}}
             <label for="id_date_recieved">Date Recieved: </label>
+            §{{form.date_recieved.errors}}
             <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ book.date_recieved }}">
             <div>
                 <button class="btn waves-effect waves-light add-button" type="submit" name="action">Add Book

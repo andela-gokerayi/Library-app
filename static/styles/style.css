@@ -223,7 +223,7 @@ nav ul {
 
 .view {
   position: relative;
-  margin-left: 45%;
+  margin-left: 82%;
 }
 
 h4 {
@@ -304,7 +304,7 @@ p {
 }
 
 .links {
-  margin-left: 30px;
+  margin-left: 45px;
   text-align: center;
   width: 500px;
 }
@@ -326,6 +326,17 @@ p {
 
 #add-button {
   height: 50px;
+}
+
+.feedback {
+  width: 56%;
+  margin-left: 22% !important;
+  margin-top: 12% !important;
+}
+
+.errorlist {
+    color: rgb(195, 13, 13);
+    font-size: smaller;
 }
 
 select { 
