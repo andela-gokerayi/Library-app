@@ -1,5 +1,8 @@
 from django.db import models
+from datetime import datetime
+from datetime import timedelta
 import datetime
+from dateutil.relativedelta import relativedelta
 
 from apps.libraryuser.models import StaffUser, Fellow
 
@@ -24,12 +27,15 @@ class Book(models.Model):
         return '{}'.format(self.title)
 
 
+def get_deadline():
+    return datetime.datetime.now() + timedelta(days=14)
+
 class BookLease(models.Model):
     book = models.ForeignKey(Book, related_name='book_leases')
     borrower = models.ForeignKey(Fellow)
     borrowed_date = models.DateField(default=datetime.datetime.now())
     return_date = models.DateField(default=datetime.datetime.now())
-    due_date = models.DateField(default=datetime.datetime.now())
+    due_date = models.DateField(default=get_deadline)
     returned = models.NullBooleanField()
 
     def __unicode__(self): 
