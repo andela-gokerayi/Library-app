@@ -27,7 +27,7 @@
             {{form.category.errors}}
             <input id = "id_category" type="text" name="category" value="{{ current_category }}">
             <label for="id_date_recieved">Date Recieved: </label>
-            §{{form.date_recieved.errors}}
+            {{form.date_recieved.errors}}
             <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ book.date_recieved }}">
             <div>
                 <button class="btn waves-effect waves-light add-button" type="submit" name="action">Add Book
