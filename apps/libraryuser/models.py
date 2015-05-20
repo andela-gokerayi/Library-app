@@ -82,3 +82,6 @@ def get_fellow_info():
             new_fellow.save()
             continue
     return 'done'
+
+
+    
