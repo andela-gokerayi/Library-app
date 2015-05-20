@@ -17,3 +17,6 @@ requests==2.5.1
 six==1.9.0
 static3==0.5.1
 whitenoise==1.0.6
+celery==3.1.18
+django-celery==3.1.16
+djrill==1.4.0

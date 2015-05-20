@@ -1,5 +1,6 @@
 from base import *
 import djcelery
+import djrill
 djcelery.setup_loader()
 
 #celery settings
@@ -29,7 +30,12 @@ INSTALLED_APPS = [
     'apps.libraryuser',
     'djcelery',
     'kombu.transport.django',
+    'djrill',
 ]
+
+MANDRILL_API_KEY = "-2K3LHRupN85PP-K9ofzLg"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+DEFAULT_FROM_EMAIL = "eniolaarinde1@gmail.com" 
 
 DATABASES = {
     'default': {
