@@ -1,6 +1,6 @@
 
 from django.db import models
-from datetime import datetime
+from datetime import datetime, date
 from datetime import timedelta
 import datetime
 from dateutil.relativedelta import relativedelta
@@ -38,6 +38,17 @@ class BookLease(models.Model):
     return_date = models.DateField(default=datetime.datetime.now())
     due_date = models.DateField(default=get_deadline)
     returned = models.NullBooleanField()
+
+    def book_is_due(self):
+        check_month = timezone.now().month == self.due_date.month
+        now = date(timezone.now().year, timezone.now().month, timezone.now().day)
+        then =  date(self.due_date.year, self.due_date.month, self.due_date.day)
+        check_day = abs((now - then).days)
+
+        if check_month and check_day == 0:
+            return "due"
+        elif check_month and check_day <= 2:
+            return "about"
 
     def __unicode__(self): 
         return '{}'.format(self.book)
