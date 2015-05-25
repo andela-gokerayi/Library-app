@@ -1,8 +1,6 @@
-from base import *
-import djcelery
-import djrill
-djcelery.setup_loader()
+from .base import *
 
+#import djrill
 #celery settings
 BROKER_URL = 'django://'
 CELERY_ACCEPT_CONTENT = ['json']

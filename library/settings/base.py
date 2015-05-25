@@ -13,6 +13,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+#imports for message broker and messaging
+import djcelery
+#import djrill
+djcelery.setup_loader()
+
+
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 import envvars
 envvars.load()
 SECRET_KEY = envvars.get('SECRET_KEY')
-# SECRET_KEY = 'e7(z&ms6*rp5e+wagnkb_pn@f&8!7=1=buton#88grj6@8_bbz'
+#SECRET_KEY = 'e7(z&ms6*rp5e+wagnkb_pn@f&8!7=1=buton#88grj6@8_bbz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,6 +52,8 @@ INSTALLED_APPS = [
     'envvars',
     'apps.book',
     'apps.libraryuser',
+    'djcelery',
+    'djrill',
 ]
 
 # THIRD_PARTY_APPS = []

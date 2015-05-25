@@ -1,11 +1,15 @@
 from __future__ import absolute_import
 
 import os
+import envvars
 from celery import Celery
 from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library.settings.dev')
+if envvars.get('DJANGO_SETTINGS_MODULE') == 'library.settings.dev':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library.settings.dev')
+elif envvars.get('DJANGO_SETTINGS_MODULE') == 'library.settings.prod':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'library.settings.prod')
 
 app = Celery('library')
 
