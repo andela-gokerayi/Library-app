@@ -393,3 +393,8 @@ select {
   border-radius: 100px / 50px;
 }
 
+.chosen-select {
+   -webkit-appearance: menulist-button;
+   height: 50px;
+}
+

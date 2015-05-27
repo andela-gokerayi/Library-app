@@ -37,4 +37,9 @@ $(document).ready(function(){
         
         $("#due_date").val(due_date);
       });
+
+      $("#borrower").chosen({
+          no_results_text: "Oops, nothing found!",
+          placeholder_text_single: "Select an option"
+        });
 });
