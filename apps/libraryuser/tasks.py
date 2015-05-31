@@ -19,7 +19,7 @@ def send_admin_mail(*args, **kwargs):
     aftertwodays = datetime.date.today() + datetime.timedelta(days=2)
     due_date = datetime.date.today()
     borrowed_books = BookLease.objects.filter(Q(due_date=aftertwodays) | 
-        Q(due_date=afteroneday) |  Q(due_date=due_date)).values_list('borrower__email', 'book__title', 'book__id')
+        Q(due_date=afteroneday) |  Q(due_date__lte=due_date)).values_list('borrower__email', 'book__title', 'book__id')
 
     list_borr = {e[0]:[] for e in borrowed_books}
 
@@ -34,7 +34,7 @@ def send_admin_mail(*args, **kwargs):
                 Hi %s,
 
                 This email is to inform you that the book(s) you borrowed
-                %s is due or about to be due. Please endeveour to return it on time.
+                (%s) is due or about to be due. Please endeveour to return it on time.
 
                 Best Regards
                 Andela Librarian

@@ -8,8 +8,19 @@
 {% endblock title %}
         
 {% block content %}
+<!-- modal beginning-->
+   <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Send Messages</h4>
+      <p>Are you sure you want to send the messages</p>
+    </div>
+    <div class="modal-footer">
+      <a href="{% url 'send_mail'%}" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+    </div>
+  </div>
+<!-- modal end-->
 <div class="book-container">
-   <a class="waves-effect waves-light btn" href="{% url 'send_mail'%}">Send mails</a>
+   <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Send mails</a>
     <table class="striped responsive hoverable">
         <thead>
             <th>TITLE</th>

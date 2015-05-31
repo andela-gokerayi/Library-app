@@ -10,6 +10,9 @@ class AddForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title', 'author', 'category', 'quantity', 'source', 'isbn_number', 'date_recieved']
+        widgets = {
+            'category': Select(attrs={'id': 'id_category'})
+        }
 
 class BookEditForm(forms.ModelForm):
     class Meta:

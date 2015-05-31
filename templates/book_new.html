@@ -25,7 +25,7 @@
             <input id = "id_isbn_number" type="text" name="isbn_number" value="{{ current_isbn_number }}">
             <label for="id_category">Book Category: </label>
             {{form.category.errors}}
-            <input id = "id_category" type="text" name="category" value="{{ current_category }}">
+            {{form.category}}
             <label for="id_date_recieved">Date Recieved: </label>
             {{form.date_recieved.errors}}
             <input id = "id_date_recieved" type="date" name="date_recieved" value="{{ book.date_recieved }}">
