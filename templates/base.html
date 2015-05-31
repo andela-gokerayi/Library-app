@@ -46,7 +46,7 @@
             </nav>
         </header>
             {% block content %}
-                <div id="content">    
+                <div id="home-content">    
                     <div class="home-body">
                         <p class="flow-text">
                             "A library is the delivery room for the birth of ideas, </br>a place,</br> where history comes to life." 
@@ -54,10 +54,10 @@
                         <br />
                         <a class="waves-effect waves-light btn visit" href="{% url 'login' %}"><i class="mdi-action-exit-to-app right"></i>Visit</a>
                     </div>
-            {% endblock %}
                 </div>
-        <div id="footer">            
-            {% block footer %}       
+            {% endblock %}         
+            {% block footer %} 
+             <div id="footer">         
               <footer class="footer">
                 <div class="footer-text">
                   <div class="footer-container">
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </footer>
-        </div>
+            </div>
             {% endblock %}
     </div>
 
