@@ -62,7 +62,7 @@ class BookLeaseDetailView(DetailView):
         context = super(BookLeaseDetailView, self).get_context_data(**kwargs)
         return context
 
-
+@login_required
 def get_book(request, id=None, template_name = 'book_new.html'):
     user = request.user
     if id:
@@ -97,7 +97,7 @@ def borrow_book(request, id=None):
 
     return render(request, 'borrow_book.html', locals(), context_instance=RequestContext(request))
 
-
+@login_required
 def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)   
     if book:
@@ -105,7 +105,7 @@ def book_delete(request, pk):
         messages.warning(request, 'has been deleted')
     return HttpResponseRedirect('/home/')
 
-
+@login_required
 def edit_book(request, id=None):
     book = Book.objects.get(id=id)
 
