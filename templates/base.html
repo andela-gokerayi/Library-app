@@ -45,6 +45,7 @@
                 </div>
             </nav>
         </header>
+            <div id="content">
             {% block content %}
                 <div id="home-content">    
                     <div class="home-body">
@@ -55,7 +56,8 @@
                         <a class="waves-effect waves-light btn visit" href="{% url 'login' %}"><i class="mdi-action-exit-to-app right"></i>Visit</a>
                     </div>
                 </div>
-            {% endblock %}         
+            {% endblock %}
+            </div>         
             {% block footer %} 
              <div id="footer">         
               <footer class="footer">

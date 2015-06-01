@@ -359,6 +359,7 @@ select {
   height:70px;
   bottom:0;
   left:0;
+  position:absolute;
   background-color: #5A0206;
 }
 
@@ -405,3 +406,6 @@ select {
   height: 900px;
 }
 
+#content {
+  padding-bottom: 70px; 
+}
