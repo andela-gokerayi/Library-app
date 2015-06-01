@@ -6,7 +6,6 @@ html, body {
 
 .login-card {
    margin-left: 25% !important;
-   height: 600px
 }
 
 .login-card-form {
@@ -80,7 +79,7 @@ nav ul {
 
 #content {
   padding-bottom: 70px;
-  min-height: 120%;
+
 }
 
 .row {
@@ -132,10 +131,6 @@ nav ul {
   margin-left: 75px;
   padding-right: 69px;
   height: 560px;
-}
-
-.login-page{
-  height: 575px;
 }
 
 .book-add {
@@ -402,10 +397,3 @@ select {
    height: 50px;
 }
 
-.add-book {
-  height: 900px;
-}
-
-#content {
-  padding-bottom: 70px; 
-}
