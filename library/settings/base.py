@@ -143,6 +143,7 @@ STATICFILES_DIRS = (
 SKILLTREE_API_URL = 'http://skilltree.andela.co/api/v1/users'
 SKILLTREE_API_KEY = 'txPFk-ppyzzI0f6iAoF3jC3amGUosLsabznp26gUxn0'
 
+
 ENDLESS_PAGINATION_PREVIOUS_LABEL = 'previous'
 ENDLESS_PAGINATION_NEXT_LABEL = 'next'
 ENDLESS_PAGINATION_FIRST_LABEL = 'first-page'

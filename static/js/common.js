@@ -42,4 +42,11 @@ $(document).ready(function(){
           no_results_text: "Oops, nothing found!",
           placeholder_text_single: "Select an option"
         });
+
+      //sending the message to the server to submit the requested method in book filter
+      $(".filter-data").change(function(){
+        $("form.filter-form").submit();
+      });
 });
+
+

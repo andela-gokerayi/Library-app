@@ -46,31 +46,28 @@
             </nav>
         </header>
             <div id="content">
-            {% block content %}
-                <div id="home-content">    
-                    <div class="home-body">
-                        <p class="flow-text">
-                            "A library is the delivery room for the birth of ideas, </br>a place,</br> where history comes to life." 
-                        </p>  
-                        <br />
-                        <a class="waves-effect waves-light btn visit" href="{% url 'login' %}"><i class="mdi-action-exit-to-app right"></i>Visit</a>
+                {% block content %}
+                    <div id="home-content">    
+                        <div class="home-body">
+                            <p class="flow-text">
+                                "A library is the delivery room for the birth of ideas, </br>a place,</br> where history comes to life." 
+                            </p>  
+                            <br />
+                            <a class="waves-effect waves-light btn visit" href="{% url 'login' %}"><i class="mdi-action-exit-to-app right"></i>Visit</a>
+                        </div>
                     </div>
-                </div>
-            {% endblock %}
-            </div>         
-            {% block footer %}        
-              <footer class="footer">
-                <div id="footer">  
+                {% endblock %}
+            </div>  
+                {% block footer %}        
+              <footer id="footer">
                     <div class="footer-text">
                       <div class="footer-container">
                         Made in <strong>Lagos </strong>by Andela Fellows.
                       </div>
                     </div>
-                </div>
               </footer>
             {% endblock %}
-    </div>
-
+         </div>
     {% block javascript %}
         <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
         <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
@@ -79,8 +76,8 @@
     <script type="text/javascript" src="{% static 'js/chosen.jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
 
-    {% block local_js %}
+    {% block js %}
         
-    {% endblock local_js %}
+    {% endblock %}
 </body>
 </html>

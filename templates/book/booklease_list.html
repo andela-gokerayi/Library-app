@@ -8,6 +8,7 @@
 {% endblock title %}
         
 {% block content %}
+  {% csrf_token %}
 <!-- modal beginning-->
    <div id="modal1" class="modal">
     <div class="modal-content">
@@ -18,10 +19,12 @@
       <a href="{% url 'send_mail'%}" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
     </div>
   </div>
+
 <!-- modal end-->
 <div class="book-container">
-   <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Send mails</a>
-    <table class="striped responsive hoverable">
+    <div class="row lease-container">     
+      <div class="col m10">
+         <table class="striped responsive hoverable">
         <thead>
             <th>TITLE</th>
             <th>BORROWER</th>
@@ -30,8 +33,8 @@
             <th>STATUS</th>
         </thead>
         <tbody>
-            {% paginate object_list %}
-            {% for book in object_list %}  
+            {% paginate book_lease_list %}
+            {% for book in book_lease_list %}  
                 <tr class='list'>
                     <td><a href="/book-detail/{{book.id}}" class="booklease-name" style="color: black;"><p class="truncate"><b>{{book.book}}</b></p></a></td> 
                     <td>{{book.borrower}}</td>
@@ -48,15 +51,38 @@
                     </td>
                 </tr>
             {% endfor %}
-            {% get_pages %}
-{{ pages.current_start_index }}-{{ pages.current_end_index }} of
-{{ pages.total_count }}.
-<div class="page3">
-    {{ pages.previous }} {{ pages.next }}
-</div>
-       
-        </div>
-        </tbody>
-    </table>
+                <div class="lease-pagination">
+                    {% get_pages %}
+                    {{ pages }}
+                </div>
+            </tbody>
+        </table>
+      </div>
+
+      <div class="col m2">
+       <ul class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header"><i class="mdi-image-filter-drama"></i>Filter status</div>
+            <div class="collapsible-body">
+              <form method='post' action="{% url 'booklease-list' %}" class="filter-form">
+                {% csrf_token %}
+                <select class="filter-data" name="filter">
+                  <option value="1">All</option>
+                  <option value="2">About</option>
+                  <option value="3">Due</option>
+                </select> 
+              </form>       
+            </div>
+          </li>
+       </ul>
+          {% if due %}
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">
+              Send mails
+            </a>
+          {% endif %}
+      </div>
+    </div>
 </div>
 {% endblock content %}
+{% block footer %}
+{% endblock %}

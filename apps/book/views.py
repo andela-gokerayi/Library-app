@@ -18,7 +18,8 @@ from django.views.generic.list import ListView
 from django.contrib import messages
 from django.views.generic import View
 from django.views.generic.edit import FormView
-
+import datetime
+from django.db.models import Q
 
 from apps.book.models import BookLease, Book
 from apps.libraryuser.models import Fellow
@@ -46,13 +47,26 @@ class BookDetailView(DetailView):
         return context
 
 
-class BookLeaseListView(ListView):
+class BookLeaseListView(View):
 
-    model = BookLease
-    def get_context_data(self, **kwargs):
-        context = super(BookLeaseListView, self).get_context_data(**kwargs)
-        return context
+    afteroneday = datetime.date.today() + datetime.timedelta(days=1)
+    aftertwodays = datetime.date.today() + datetime.timedelta(days=2)
+    due_date = datetime.date.today()
 
+    def get(self, request):
+        leased_book = BookLease.objects.all()
+        return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book})
+
+    def post(self, request):
+        if request.POST.get('filter', None) == "1":
+            leased_book = BookLease.objects.all()
+            return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book})
+        elif request.POST.get('filter', None) == "2":
+            leased_book = BookLease.objects.filter(Q(due_date=self.aftertwodays) | Q(due_date=self.afteroneday))
+            return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book})
+        elif request.POST.get('filter', None) == "3":
+            leased_book = BookLease.objects.filter(Q(due_date__lte=self.due_date))
+            return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book, 'due': 'due'})
 
 class BookLeaseDetailView(DetailView):
 

@@ -47,10 +47,10 @@
                 {% endfor %}
             </tbody>
         </table>
-    <a class="waves-effect waves-light btn-large borrow btn tooltipped" data-position="left" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a>
+    <a class="waves-effect waves-light btn-large borrow btn tooltipped add-butt" data-position="left" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a>
   </div>
   {% endblock content %}
-
+  
 {% block local_js %}
  <script>
  $(document).ready(function(){
