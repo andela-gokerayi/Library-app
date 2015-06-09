@@ -14,6 +14,7 @@ from apps.libraryuser.models import Fellow
 from apps.libraryuser.tasks import send_admin_mail
 
 urlpatterns = patterns ('',
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^detail/(?P<pk>[-_\w]+)', login_required(BookDetailView.as_view()), name='book-detail'),
     url(r'^book-detail/(?P<pk>[-_\w]+)', login_required(BookLeaseDetailView.as_view()), name='booklease-detail'),

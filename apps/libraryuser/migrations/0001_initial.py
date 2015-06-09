@@ -20,6 +20,9 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=100)),
                 ('email', models.EmailField(max_length=100, null=True, blank=True)),
             ],
+            options={
+            },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='StaffUser',
@@ -27,5 +30,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+            },
+            bases=(models.Model,),
         ),
     ]

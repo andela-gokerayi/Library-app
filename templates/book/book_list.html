@@ -18,6 +18,7 @@
         {% endif %}
     </div>
     <div class="book-container">
+     {% if request.user.is_admin %}
         <table class="striped responsive hoverable">
             <thead>
                 <th>TITLE</th>
@@ -47,7 +48,38 @@
                 {% endfor %}
             </tbody>
         </table>
-    <a class="waves-effect waves-light btn-large borrow btn tooltipped add-butt" data-position="left" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a>
+    <a class="waves-effect waves-light btn-large borrow btn tooltipped add-butt" 
+    data-position="left" data-delay="50" data-tooltip="Add a Book"  href="{% url 'add-book' %}">Add a Book</a>
+    {% else %}
+         <table class="striped responsive hoverable">
+            <thead>
+                <th>TITLE</th>
+                <th>AUTHOR</th>
+                <th>CATEGORY</th>
+                <th>AVAILABLE</th>
+            </thead>
+            <tbody>
+                {% for book in object_list %}   
+                    <tr class='list'>
+                        <td><a href="/detail/{{book.id}}"><p class="truncate book-name"><b>{{book.title}}</b></p></a></td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.category}}</td>
+                        <td>{{book.quantity}}</td>
+                        <td>{{book.num_book_available}}</td>
+                        {% if book.num_book_available >= 1 %}
+                            <td>
+                                <a href="/borrow/{{book.id}}" class="btn-floating btn-small waves-effect waves-light modal-trigger tooltipped" data-tooltip="Lend this Book" data-position="right">
+                                  <i class="fa fa-share"></i>
+                                </a>
+                            </td>
+                        {% else %}
+                            <td><p type="text" disabled>unavalable</p></a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
   </div>
   {% endblock content %}
   

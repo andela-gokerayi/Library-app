@@ -14,23 +14,6 @@ DEBUG = True
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.auth',
-    'django.contrib.admin',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'endless_pagination',
-    'envvars',
-    'apps.book',
-    'apps.libraryuser',
-    'djcelery',
-    'kombu.transport.django',
-    'djrill',
-]
-
 MANDRILL_API_KEY = "-2K3LHRupN85PP-K9ofzLg"
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 DEFAULT_FROM_EMAIL = "eniolaarinde1@gmail.com" 

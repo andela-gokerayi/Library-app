@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -52,9 +52,10 @@ INSTALLED_APPS = [
     'envvars',
     'apps.book',
     'apps.libraryuser',
+    'social.apps.django_app.default',
     'djcelery',
     'djrill',
-]
+)
 
 # THIRD_PARTY_APPS = []
 
@@ -72,28 +73,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'library.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            'templates',
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+    'templates',
+)
 
 # from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 # TEMPLATE_CONTEXT_PROCESSORS += (
@@ -103,6 +90,36 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'library.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+   'social.backends.google.GoogleOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+   'django.contrib.auth.context_processors.auth',
+   'django.core.context_processors.request',
+   'django.core.context_processors.debug',
+   'django.core.context_processors.i18n',
+   'django.core.context_processors.media',
+   'django.core.context_processors.static',
+   'django.core.context_processors.tz',
+   'django.contrib.messages.context_processors.messages',
+   'social.apps.django_app.context_processors.backends',
+   'social.apps.django_app.context_processors.login_redirect',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -143,6 +160,16 @@ STATICFILES_DIRS = (
 SKILLTREE_API_URL = 'http://skilltree.andela.co/api/v1/users'
 SKILLTREE_API_KEY = 'txPFk-ppyzzI0f6iAoF3jC3amGUosLsabznp26gUxn0'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "748084038438-i5222c8jsr2e9vbejct42bqdsj7vs2s0.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "Cff7GB8jmSgFhGNuahkUngg1"
+AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
+TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
+REDIRECT_URIs = ["http://localhost:8000/complete/google-oauth2/", "http://127.0.0.1:8000/complete/google-oauth2/", "http://localhost:5000/complete/google-oauth2/", "http://127.0.0.1:5000/complete/google-oauth2/"]
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = ['andela.co']
+AUTH_PROFILE_MODULE = 'apps.staff.UserProfile'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+SOCIAL_AUTH_USER_MODEL = 'auth.User'
 
 ENDLESS_PAGINATION_PREVIOUS_LABEL = 'previous'
 ENDLESS_PAGINATION_NEXT_LABEL = 'next'
