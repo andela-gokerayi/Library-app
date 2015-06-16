@@ -21,14 +21,13 @@ from django.views.generic.edit import FormView
 import datetime
 from django.db.models import Q
 
-from apps.book.models import BookLease, Book
+from apps.book.models import BookLease, Book, BookBorrowRequest
 from apps.libraryuser.models import Fellow
 from apps.book.forms import AddForm, LendBookForm, BookEditForm
 
         
 class BookListView(ListView):
     model = Book
-
     def get_context_data(self, **kwargs):
         book_id = self.request.session.get('book_id')
         context = super(BookListView, self).get_context_data(**kwargs)
@@ -46,6 +45,10 @@ class BookDetailView(DetailView):
         context = super(BookDetailView, self).get_context_data(**kwargs)
         return context
 
+#function to handle to actions of the admin
+#when the user requests to borrow a book
+def admin_response(request):
+    pass
 
 class BookLeaseListView(View):
 
@@ -110,6 +113,14 @@ def borrow_book(request, id=None):
         form.fields['book'].initial = book
 
     return render(request, 'borrow_book.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def lend_book(request, id=None):
+    user = request.user
+    book = Book.objects.get(id=id)
+    BookBorrowRequest.objects.create(borrower=user, book_name=book)
+    messages.success(request, 'Your request has been sent to the Librarian')
+    return HttpResponseRedirect('/home/')
 
 @login_required
 def book_delete(request, pk):

@@ -5,6 +5,7 @@ import datetime
 import time
 from dateutil.relativedelta import relativedelta
 from django.utils import timezone
+from django.contrib.auth.models import User
 from apps.libraryuser.models import StaffUser, Fellow
 
 Categories = (
@@ -54,6 +55,10 @@ class Book(models.Model):
         available = self.quantity - total_leased
         return available
     
+    def get_book_request(self):
+        requests = self.bookborrowrequest_set.all()
+        return [i.borrower.username for i in requests]
+
     num_book_available = property(get_num_available_book)
         
     def __unicode__(self): 
@@ -62,6 +67,14 @@ class Book(models.Model):
 
 def get_deadline():
     return datetime.datetime.now() + timedelta(days=14)
+
+class BookBorrowRequest(models.Model):
+    borrower = models.ForeignKey(User)
+    book_name = models.ForeignKey(Book)
+    is_allowed = models.BooleanField(default=False)
+
+    # def __unicode__(self):
+    #     return self.borrower
 
 class BookLease(models.Model):
     book = models.ForeignKey(Book, related_name='book_leases')

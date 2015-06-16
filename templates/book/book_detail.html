@@ -19,6 +19,7 @@
               <p>Availble: {{book.num_book_available}}</p>
               <p>Date Recieved: {{book.date_recieved}}</p>
               <p>Given By: {{book.source}}</p>
+          {% if request.user.is_staff %}
               <div class="card-action links">
                   <a href="/edit-book/{{book.id}}" class="waves-effect waves-green btn-flat book-action">Edit</a>
                   {% if book.num_book_available >= 1 %}
@@ -26,6 +27,34 @@
                   {% else %}
                     <td><a href="#" class="waves-effect waves-green btn-flat book-action" ><text type="text" disabled>Unavailable</text></a></td>
                   {% endif %}
+              </div>
+              <div>
+                <table class="striped responsive hoverable">
+                  <thead>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>LEND</th>
+                    <th>DECLINE</th>
+                  </thead>
+                  <tbody>
+                    {% for lenders in book.bookborrowrequest_set.all %}
+                      <tr>
+                        <td>{{lenders.borrower.username}}</td>
+                        <td>{{lenders.borrower.email}}</td>
+                        <td>
+                          <a style="white-space: nowrap" href="{% url 'admin_response'%}?
+                          type=remove&name={{lenders.borrower.username}}&book={{book.title}}">
+                          <i class="fa fa-check"></i>
+                          </a>
+                        </td>
+                        <td><a href="{% url 'admin_response'%}">
+                            <i class="fa fa-times-circle"></i>
+                            </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
                 <a href="/home/" class="waves-effect waves-green btn-flat back-to-list">Back to List</a>
                 <a class="waves-effect waves-light btn-flat modal-trigger del" href="#modal1">Delete</a>
@@ -41,6 +70,9 @@
                     </form>
                   </div>
                 </div>
+          {% else %}
+            <a href="/home/" class="waves-effect waves-green btn-flat back-to-list">Back to List</a>
+          {% endif %}
           </div>
         </div>
       </div>

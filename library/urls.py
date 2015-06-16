@@ -7,7 +7,7 @@ from apps.book.views import BookLeaseDetailView, BookDetailView
 from apps.book.views import book_delete
 from apps.book.views import get_book
 from apps.book.views import edit_book
-from apps.book.views import borrow_book
+from apps.book.views import borrow_book, lend_book, admin_response
 from apps.libraryuser.views import  auth_view, login, logout
 from apps.libraryuser.views import HomeView
 from apps.libraryuser.models import Fellow
@@ -27,7 +27,9 @@ urlpatterns = patterns ('',
     url(r'^add-book/$', get_book, name='add-book'),
     url(r'^edit-book/(?P<id>\d+)/$', edit_book, name='edit-book'),
     url(r'^borrow/(?P<id>\d+)/$', borrow_book, name='borrow-book'),
+    url(r'^lend-book/(?P<id>\d+)/$', lend_book, name='lend-book'),
     url(r'^delete/(?P<pk>\d+)$', book_delete, name='book_delete'),
     url(r'^send-mail/$', send_admin_mail, name='send_mail'),
+    url(r'^admin-response/$', admin_response, name="admin_response"),
 )
    
