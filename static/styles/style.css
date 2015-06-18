@@ -439,4 +439,15 @@ select {
   text-shadow: 0px 0px 3px rgba(0,0,0, .5);
 }
 
+.user-login {
+  position: relative;
+  left: 18%;
+  buttom: 0;
+}
+
+.user-login a {
+  margin: 20px;
+  color: white !important;
+}
+
 

@@ -28,36 +28,33 @@
                     <td><a href="#" class="waves-effect waves-green btn-flat book-action" ><text type="text" disabled>Unavailable</text></a></td>
                   {% endif %}
               </div>
-              <div>
-                <table class="striped responsive hoverable">
-                  <thead>
-                    <th>NAME</th>
-                    <th>EMAIL</th>
-                    <th>LEND</th>
-                    <th>DECLINE</th>
-                  </thead>
-                  <tbody>
-                    {% for lenders in book.bookborrowrequest_set.all %}
-                      <tr>
-                        <td>{{lenders.borrower.username}}</td>
-                        <td>{{lenders.borrower.email}}</td>
-                        <td>
-                          <a style="white-space: nowrap" href="{% url 'admin_response'%}?
-                          type=remove&name={{lenders.borrower.username}}&book={{book.title}}">
-                          <i class="fa fa-check"></i>
-                          </a>
-                        </td>
-                        <td><a href="{% url 'admin_response'%}">
-                            <i class="fa fa-times-circle"></i>
-                            </a>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
                 <a href="/home/" class="waves-effect waves-green btn-flat back-to-list">Back to List</a>
                 <a class="waves-effect waves-light btn-flat modal-trigger del" href="#modal1">Delete</a>
+                  <div>
+                    {% if book.bookborrowrequest_set.all|length > 0 %}
+                      <table class="striped responsive hoverable">
+                        <tbody>
+                          {% for lenders in book.bookborrowrequest_set.all %}
+                            {% if not lenders.is_allowed %}
+                              <tr>
+                                <td>{{lenders.borrower.username}}</td>
+                                <td>{{lenders.borrower.email}}</td>
+                                <td>
+                                  <a style="white-space: nowrap" href="{% url 'admin_response'%}?type=lend&name={{lenders.borrower.username}}&book={{book.id}}" data-tooltip="Lend this Book" data-position="right" class="tooltipped">
+                                  <i class="fa fa-check"></i>
+                                  </a>
+                                </td>
+                                <td><a href="{% url 'admin_response'%}?type=decline&name={{lenders.borrower.username}}&book={{book.id}}" data-tooltip="Decline" data-position="right" class="tooltipped">
+                                    <i class="fa fa-times-circle"></i>
+                                    </a>
+                                </td>
+                              </tr>
+                            {% endif %}
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    {% endif %}
+                  </div>
                 <div id="modal1" class="modal del-modal">
                   <div class="modal-content">
                     <h4 class="modal-header">Hey, are you sure you want to delete {{ object.title }}?</h4>

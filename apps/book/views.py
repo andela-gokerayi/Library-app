@@ -19,11 +19,13 @@ from django.contrib import messages
 from django.views.generic import View
 from django.views.generic.edit import FormView
 import datetime
+from django.contrib.auth.models import User
 from django.db.models import Q
 
 from apps.book.models import BookLease, Book, BookBorrowRequest
 from apps.libraryuser.models import Fellow
 from apps.book.forms import AddForm, LendBookForm, BookEditForm
+from apps.book.helpers import send_decline_mail, send_borrow_request_mail
 
         
 class BookListView(ListView):
@@ -48,8 +50,22 @@ class BookDetailView(DetailView):
 #function to handle to actions of the admin
 #when the user requests to borrow a book
 def admin_response(request):
-    pass
+    if request.GET.get('type') == 'lend':
+        user = User.objects.get(username=request.GET.get('name'))
+        book = Book.objects.get(id=request.GET.get('book'))
+        new_lender = Fellow.objects.get(email=user.email)
+        BookBorrowRequest.objects.get(borrower_id=user.id).is_allowed = True
+        BookLease.objects.create(book=book, borrower=new_lender, returned=False)
+        return HttpResponseRedirect('/detail/%s' %(request.GET.get('book')))
+    else:
+        requested_leases = BookBorrowRequest.objects.all()
 
+        lender = [i for i in requested_leases if i.borrower.username==str(request.GET.get('name'))
+            and i.book_name.id==int(request.GET.get('book'))][0]
+        send_decline_mail(lender.borrower.email, lender.book_name.title)
+        lender.delete();
+        return HttpResponseRedirect('/detail/%s' %(request.GET.get('book')))
+        
 class BookLeaseListView(View):
 
     afteroneday = datetime.date.today() + datetime.timedelta(days=1)
@@ -119,6 +135,7 @@ def lend_book(request, id=None):
     user = request.user
     book = Book.objects.get(id=id)
     BookBorrowRequest.objects.create(borrower=user, book_name=book)
+    send_borrow_request_mail(user, book.title)
     messages.success(request, 'Your request has been sent to the Librarian')
     return HttpResponseRedirect('/home/')
 
