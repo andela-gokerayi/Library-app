@@ -77,12 +77,21 @@
                                 </a>
                             </td>
                         {% else %}
-                            <td><p type="text" disabled>unavailable</p></td>
+                            {% if not request.user.email in book.get_book_deadline %}
+                               <td><p type="text" disabled>Unavailable</p></td>
+                            {% else %}
+                               <td><p type="text" disabled>Borrowed</p></td>
+                            {% endif %}
                         {% endif %}
                         <td>
-                            {% if request.user.username in book.get_book_request %}
+                          {% if request.user.username in book.get_book_request %}
+                            {% for key,value in book.get_book_deadline.items %}
+                              {% if key == request.user.email %}{{value}} days remaining{%endif%}
+                            {% endfor %}
+                            {% if not request.user.email in book.get_book_deadline %}
                               Request Sent
                             {% endif %}
+                          {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

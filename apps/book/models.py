@@ -59,6 +59,12 @@ class Book(models.Model):
         requests = self.bookborrowrequest_set.all()
         return [i.borrower.username for i in requests]
 
+    def get_book_deadline(self):
+        leases = self.book_leases.all()
+        print leases.values()
+        print "crap",{k.borrower.email:k.days_due() for i, k in enumerate(leases)}
+        return {k.borrower.email:k.days_due() for i, k in enumerate(leases)}
+
     num_book_available = property(get_num_available_book)
         
     def __unicode__(self): 
@@ -94,6 +100,11 @@ class BookLease(models.Model):
             return "due"
         elif check_month and check_day <= 2:
             return "about"
+
+    def days_due(self):
+        now = date(timezone.now().year, timezone.now().month, timezone.now().day)
+        then =  date(self.due_date.year, self.due_date.month, self.due_date.day)
+        return abs((now - then).days)
 
     def __unicode__(self): 
         return '{}'.format(self.book)
