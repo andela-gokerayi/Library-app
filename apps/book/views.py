@@ -54,7 +54,9 @@ def admin_response(request):
         user = User.objects.get(username=request.GET.get('name'))
         book = Book.objects.get(id=request.GET.get('book'))
         new_lender = Fellow.objects.get(email=user.email)
-        BookBorrowRequest.objects.get(borrower_id=user.id).is_allowed = True
+        get_request = BookBorrowRequest.objects.get(borrower_id=user.id, book_name_id=request.GET.get('book'))
+        get_request.is_allowed = True 
+        get_request.save()
         BookLease.objects.create(book=book, borrower=new_lender, returned=False)
         return HttpResponseRedirect('/detail/%s' %(request.GET.get('book')))
     else:

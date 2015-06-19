@@ -164,8 +164,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "748084038438-i5222c8jsr2e9vbejct42bqdsj7vs2s0.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "Cff7GB8jmSgFhGNuahkUngg1"
 AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
 TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
-REDIRECT_URIs = ["http://localhost:8000/complete/google-oauth2/", "http://127.0.0.1:8000/complete/google-oauth2/", 
-"http://andela-library.herokuapp.com/complete/google-oauth2/", "http://andela-library.herokuapp.com/complete/google-oauth2/"]
+REDIRECT_URIs = ["http://localhost:8000/complete/google-oauth2/", "http://127.0.0.1:8000/complete/google-oauth2/", "http://andela-library.herokuapp.com/complete/google-oauth2/", "http://andela-library.herokuapp.com/complete/google-oauth2/"]
 SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = ['andela.co']
 AUTH_PROFILE_MODULE = 'apps.staff.UserProfile'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'

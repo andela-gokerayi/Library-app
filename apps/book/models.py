@@ -61,8 +61,6 @@ class Book(models.Model):
 
     def get_book_deadline(self):
         leases = self.book_leases.all()
-        print leases.values()
-        print "crap",{k.borrower.email:k.days_due() for i, k in enumerate(leases)}
         return {k.borrower.email:k.days_due() for i, k in enumerate(leases)}
 
     num_book_available = property(get_num_available_book)
