@@ -68,6 +68,32 @@ class BookModelTest(TestCase):
 
         self.assertEqual({'john@example.com': 14, 'jane@example.com': 14}, deadline)
 
+    def test_get_num_available_books_with_zero_quantity(self):
+        book = BookFactory(quantity=0)
+
+        num_available = book.get_num_available_book()
+
+        self.assertEqual(0, num_available)
+
+    def test_get_num_available_books_with_quantity_greater_than_zero(self):
+        book = BookFactory(quantity=3)
+
+        num_available = book.get_num_available_book()
+
+        self.assertEqual(3, num_available)
+
+    def test_get_num_available_books_with_leases(self):
+        lease = BookLeaseFactory()
+
+        num_available = lease.book.get_num_available_book()
+
+        self.assertEqual(0, num_available)
+
+     # def get_num_available_book(self):
+     #    total_leased = self.book_leases.all().count()
+     #    available = self.quantity - total_leased
+     #    return available
+
 
 class BookLeaseModelTest(TestCase):
 
@@ -82,4 +108,3 @@ class BookLeaseModelTest(TestCase):
         self.assertTrue(fields.has_key('borrowed_date'))
         self.assertTrue(fields.has_key('due_date'))
         self.assertTrue(fields.has_key('returned'))
-        

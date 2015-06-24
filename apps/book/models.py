@@ -44,13 +44,15 @@ class Book(models.Model):
     author = models.CharField(max_length=100, blank=False)
     isbn_number = models.CharField(max_length=100, unique=True)
     date_recieved = models.DateField(auto_now_add=True)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1)
     source = models.CharField(max_length=50)
     category = models.CharField(max_length=150, choices=Categories)
 
     def get_num_available_book(self):
-        total_leased = self.book_leases.all().count()
-        available = self.quantity - total_leased
+        available = self.quantity
+        if available > 0:
+            total_leased = self.book_leases.all().count()
+            available = available - total_leased
         return available
     
     def get_book_request(self):

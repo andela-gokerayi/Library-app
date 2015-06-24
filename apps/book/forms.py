@@ -5,7 +5,7 @@ from django.forms import ModelChoiceField
 from apps.book.models import Book, BookLease
 from apps.libraryuser.models import Fellow
 
-
+# TODO: verify quantity greater than zero
 class AddForm(forms.ModelForm):
     class Meta:
         model = Book

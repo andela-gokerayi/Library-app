@@ -1,7 +1,7 @@
 [run]
 source = apps, templates
 # When new version of coverage is out, enable branch
-#branch = True
+branch = True
 omit = *tests*
     */migrations/*
     *__init__.py
