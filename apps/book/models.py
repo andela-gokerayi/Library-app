@@ -59,7 +59,7 @@ class Book(models.Model):
 
     def get_book_deadline(self):
         leases = self.book_leases.all()
-        return {k.borrower.email:k.days_due() for i, k in enumerate(leases)}
+        return {lease.borrower.email:lease.days_due() for lease in leases}
 
     num_book_available = property(get_num_available_book)
         
