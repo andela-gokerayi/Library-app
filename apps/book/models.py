@@ -1,7 +1,5 @@
 from django.db import models
-from datetime import datetime, date
-from datetime import timedelta
-import datetime
+from datetime import datetime, date, timedelta
 import time
 from dateutil.relativedelta import relativedelta
 from django.utils import timezone
@@ -45,8 +43,8 @@ class Book(models.Model):
     title = models.CharField(max_length=50, blank=False)
     author = models.CharField(max_length=100, blank=False)
     isbn_number = models.CharField(max_length=100, unique=True)
-    date_recieved = models.DateField(default=datetime.datetime.now())
-    quantity = models.PositiveIntegerField(default=0, null=True)
+    date_recieved = models.DateField(auto_now_add=True)
+    quantity = models.PositiveIntegerField(default=0)
     source = models.CharField(max_length=50)
     category = models.CharField(max_length=150, choices=Categories)
 
@@ -70,7 +68,7 @@ class Book(models.Model):
 
 
 def get_deadline():
-    return datetime.datetime.now() + timedelta(days=14)
+    return datetime.now() + timedelta(days=14)
 
 class BookBorrowRequest(models.Model):
     borrower = models.ForeignKey(User)
@@ -83,7 +81,7 @@ class BookBorrowRequest(models.Model):
 class BookLease(models.Model):
     book = models.ForeignKey(Book, related_name='book_leases')
     borrower = models.ForeignKey(Fellow)
-    borrowed_date = models.DateField(default=datetime.datetime.now())
+    borrowed_date = models.DateField(auto_now_add=True)
     due_date = models.DateField(default=get_deadline)
     returned = models.NullBooleanField()
 

@@ -16,3 +16,5 @@ lib64/
 staticfiles
 prod_env
 .DS_Store
+.ropeproject/
+.sh
