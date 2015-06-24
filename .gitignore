@@ -18,3 +18,4 @@ prod_env
 .DS_Store
 .ropeproject/
 .sh
+.coverage

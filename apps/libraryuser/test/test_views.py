@@ -12,23 +12,23 @@ class LibraryUserTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-    def test_log_in(self):
+    # def test_log_in(self):
 
-        client = Client()
+    #     client = Client()
 
-        response = client.post(
-            reverse('login'), {'username': 'ife', 'password': 'password'})
-        user = Fellow.objects.get(id='0')
-        self.assertEqual(client.session['_auth_user_id'], user.id)
+    #     response = client.post(
+    #         reverse('login'), {'username': 'ife', 'password': 'password'})
+    #     user = Fellow.objects.get(id='0')
+    #     self.assertEqual(client.session['_auth_user_id'], user.id)
 
 
-    def test_log_out(self):
+    # def test_log_out(self):
 
-        client = Client()
+    #     client = Client()
 
-        client.post(
-            reverse('login'), {'username': 'ife', 'password': 'password'})
-        user = Fellow.objects.get(id='0')
+    #     client.post(
+    #         reverse('login'), {'username': 'ife', 'password': 'password'})
+    #     user = Fellow.objects.get(id='0')
 
-        client.get(reverse('logout'))
-        self.assertNotIn('_auth_user_id', client.session)
+    #     client.get(reverse('logout'))
+    #     self.assertNotIn('_auth_user_id', client.session)

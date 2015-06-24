@@ -1,7 +1,32 @@
 from django.test import TestCase
 from django.db import models
-from apps.book.models import Book
-from apps.book.models import BookLease
+from apps.book.models import Book, BookLease
+from apps.libraryuser.models import Fellow
+import factory
+
+
+class BookFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = Book
+
+    title = u'String Theory'
+
+
+class FellowFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = Fellow
+
+    first_name = u'John'
+    email = u'john@example.com'
+
+
+class BookLeaseFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = BookLease
+
+    book = factory.SubFactory(BookFactory)
+    borrower = factory.SubFactory(FellowFactory)
+
 
 # Create your tests here.
 class BookModelTest(TestCase):
@@ -20,6 +45,29 @@ class BookModelTest(TestCase):
         self.assertTrue(fields.has_key('source'))
         self.assertTrue(fields.has_key('category'))
 
+    def test_get_book_deadline_method_empty_book(self):
+        book = BookFactory()
+
+        deadline = book.get_book_deadline()
+
+        self.assertEqual({}, deadline)
+
+    def test_get_book_deadline_method_single_lease(self):
+        lease = BookLeaseFactory()
+
+        deadline = lease.book.get_book_deadline()
+
+        self.assertEqual({'john@example.com': 14}, deadline)
+
+    def test_get_book_deadline_method_multiple_leases(self):
+        lease1 = BookLeaseFactory()
+        borrower = FellowFactory(email='jane@example.com')
+        lease2 = BookLeaseFactory(book=lease1.book, borrower=borrower)
+
+        deadline = lease1.book.get_book_deadline()
+
+        self.assertEqual({'john@example.com': 14, 'jane@example.com': 14}, deadline)
+
 
 class BookLeaseModelTest(TestCase):
 
@@ -32,6 +80,6 @@ class BookLeaseModelTest(TestCase):
         self.assertTrue(fields.has_key('book'))
         self.assertTrue(fields.has_key('borrower'))
         self.assertTrue(fields.has_key('borrowed_date'))
-        self.assertTrue(fields.has_key('return_date'))
         self.assertTrue(fields.has_key('due_date'))
         self.assertTrue(fields.has_key('returned'))
+        

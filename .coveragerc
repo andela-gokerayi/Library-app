@@ -1,0 +1,9 @@
+[run]
+source = apps, templates
+# When new version of coverage is out, enable branch
+#branch = True
+omit = *tests*
+    */migrations/*
+    *__init__.py
+plugins =
+    django_coverage_plugin
