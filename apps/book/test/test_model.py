@@ -1,9 +1,15 @@
 from django.test import TestCase
 from django.db import models
-from apps.book.models import Book, BookLease
+from django.contrib.auth.models import User
+from apps.book.models import Book, BookLease, BookBorrowRequest
 from apps.libraryuser.models import Fellow
 import factory
 
+class UserFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = User
+
+    username = u'eniola'
 
 class BookFactory(factory.DjangoModelFactory):
     class Meta:
@@ -27,6 +33,12 @@ class BookLeaseFactory(factory.DjangoModelFactory):
     book = factory.SubFactory(BookFactory)
     borrower = factory.SubFactory(FellowFactory)
 
+class BookBorrowRequestFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = BookBorrowRequest
+
+    book_name = factory.SubFactory(BookFactory)
+    borrower = factory.SubFactory(UserFactory)
 
 # Create your tests here.
 class BookModelTest(TestCase):
@@ -89,10 +101,19 @@ class BookModelTest(TestCase):
 
         self.assertEqual(0, num_available)
 
-     # def get_num_available_book(self):
-     #    total_leased = self.book_leases.all().count()
-     #    available = self.quantity - total_leased
-     #    return available
+    def test_get_book_request_if_there_is_a_request(self):
+        book_request = BookBorrowRequestFactory()
+
+        usernames = book_request.book_name.get_book_request()
+
+        self.assertEqual(['eniola'], usernames)
+
+    def test_get_book_request_if_there_is_no_request(self):
+        book_request = Book()
+
+        usernames = book_request.get_book_request()
+
+        self.assertEqual([], usernames)
 
 
 class BookLeaseModelTest(TestCase):
