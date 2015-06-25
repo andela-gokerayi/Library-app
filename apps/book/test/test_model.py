@@ -1,15 +1,24 @@
+from datetime import datetime
+import factory
+from mock import patch
+import pytz
+
 from django.test import TestCase
 from django.db import models
 from django.contrib.auth.models import User
-from apps.book.models import Book, BookLease, BookBorrowRequest
+from apps.book.models import Book, BookLease, BookBorrowRequest, get_deadline
 from apps.libraryuser.models import Fellow
-import factory
+
+
+TIMEZONE = pytz.timezone("Africa/Lagos")
+
 
 class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = User
 
     username = u'eniola'
+
 
 class BookFactory(factory.DjangoModelFactory):
     class Meta:
@@ -33,12 +42,14 @@ class BookLeaseFactory(factory.DjangoModelFactory):
     book = factory.SubFactory(BookFactory)
     borrower = factory.SubFactory(FellowFactory)
 
+
 class BookBorrowRequestFactory(factory.DjangoModelFactory):
     class Meta:
         model = BookBorrowRequest
 
     book_name = factory.SubFactory(BookFactory)
     borrower = factory.SubFactory(UserFactory)
+
 
 # Create your tests here.
 class BookModelTest(TestCase):
@@ -115,6 +126,20 @@ class BookModelTest(TestCase):
 
         self.assertEqual([], usernames)
 
+    def test_book_unicode_method_when_there_is_an_empty_book(self):
+        book = Book()
+
+        title = book.__unicode__()
+
+        self.assertEqual('', title)
+
+    def test_book_unicode_method_when_the_book_is_not_empty(self):
+        book = BookLeaseFactory()
+
+        title = book.__unicode__()
+
+        self.assertEqual('String Theory', title)     
+     
 
 class BookLeaseModelTest(TestCase):
 
@@ -129,3 +154,39 @@ class BookLeaseModelTest(TestCase):
         self.assertTrue(fields.has_key('borrowed_date'))
         self.assertTrue(fields.has_key('due_date'))
         self.assertTrue(fields.has_key('returned'))
+
+    @patch('apps.book.models.now')
+    def test_get_deadline_method(self, mock_now):
+        mock_now.return_value = datetime(2015, 5, 21)
+
+        deadline = get_deadline()
+
+        self.assertEqual(datetime(2015, 6, 4), deadline)
+
+    @patch('apps.book.models.now')
+    def test_book_is_due_due(self, mock_now):
+        mock_now.return_value = TIMEZONE.localize(datetime(2015, 6, 25))
+        lease = BookLeaseFactory(due_date=TIMEZONE.localize(datetime(2015, 5, 26)))
+
+        check = lease.book_is_due()
+
+        self.assertEqual('due', check)
+
+    @patch('apps.book.models.now')
+    def test_book_is_due_about(self, mock_now):
+        mock_now.return_value = TIMEZONE.localize(datetime(2015, 6, 25))
+        lease = BookLeaseFactory(due_date=TIMEZONE.localize(datetime(2015, 6, 26)))
+
+        check = lease.book_is_due()
+
+        self.assertEqual('about', check)
+
+    @patch('apps.book.models.now')
+    def test_book_is_due_not_due(self, mock_now):
+        mock_now.return_value = TIMEZONE.localize(datetime(2015, 6, 25))
+        lease = BookLeaseFactory(due_date=TIMEZONE.localize(datetime(2015, 6, 30)))
+
+        check = lease.book_is_due()
+
+        self.assertEqual(None, check)
+        

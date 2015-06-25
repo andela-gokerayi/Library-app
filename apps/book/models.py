@@ -69,8 +69,13 @@ class Book(models.Model):
         return '{}'.format(self.title)
 
 
+def now():
+    return timezone.now()
+
+
 def get_deadline():
-    return datetime.now() + timedelta(days=14)
+    return now() + timedelta(days=14)
+
 
 class BookBorrowRequest(models.Model):
     borrower = models.ForeignKey(User)
@@ -88,15 +93,12 @@ class BookLease(models.Model):
     returned = models.NullBooleanField()
 
     def book_is_due(self):
-        check_time = time.mktime(self.due_date.timetuple()) - time.time()
-        check_month = timezone.now().month == self.due_date.month
-        now = date(timezone.now().year, timezone.now().month, timezone.now().day)
-        then =  date(self.due_date.year, self.due_date.month, self.due_date.day)
-        check_day = abs((now - then).days)
+        today = now()
+        date_diff = self.due_date - today 
        
-        if check_time <= 0:
+        if date_diff.total_seconds() <= 0:
             return "due"
-        elif check_month and check_day <= 2:
+        elif date_diff.days <= 2:
             return "about"
 
     def days_due(self):
