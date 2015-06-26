@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 import time
 from dateutil.relativedelta import relativedelta
 from django.utils import timezone
@@ -70,7 +70,7 @@ class Book(models.Model):
 
 
 def now():
-    return timezone.now()
+    return date.today()
 
 
 def get_deadline():
@@ -92,19 +92,20 @@ class BookLease(models.Model):
     due_date = models.DateField(default=get_deadline)
     returned = models.NullBooleanField()
 
-    def book_is_due(self):
+    def check_due(self):
         today = now()
-        date_diff = self.due_date - today 
-       
-        if date_diff.total_seconds() <= 0:
+        return self.due_date - today 
+
+    def book_is_due(self):
+        due_diff = self.check_due()
+        if due_diff.total_seconds() <= 0:
             return "due"
-        elif date_diff.days <= 2:
+        elif due_diff.days <= 2:
             return "about"
 
     def days_due(self):
-        now = date(timezone.now().year, timezone.now().month, timezone.now().day)
-        then =  date(self.due_date.year, self.due_date.month, self.due_date.day)
-        return abs((now - then).days)
+        due_diff = self.check_due()
+        return abs(due_diff.days)
 
     def __unicode__(self): 
         return '{}'.format(self.book)

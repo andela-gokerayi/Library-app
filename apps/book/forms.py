@@ -1,4 +1,3 @@
-import datetime
 from django import forms
 from django.forms import ModelForm, Textarea, TextInput, Select, Textarea, DateInput
 from django.forms import ModelChoiceField
@@ -27,12 +26,12 @@ class LendBookForm(ModelForm):
 
     class Meta:
         model = BookLease
-        fields = ['book', 'borrower', 'due_date'] 
+        fields = ['book', 'borrower', 'due_date']
         widgets = {
             'borrower': Select(attrs={'id': 'borrower', 'class': 'browser-default chosen-select'}),
-            'borrowed_date': DateInput(attrs={'type': 'date', 'class': 'datepicker', 
+            'borrowed_date': DateInput(attrs={'type': 'date', 'class': 'datepicker',
                 'id': 'borrowed_date'}, format='%Y-%m-%d'),
-            'due_date': DateInput(attrs={'type': 'date', 'class': 'datepicker', 
+            'due_date': DateInput(attrs={'type': 'date', 'class': 'datepicker',
                 'id': 'due_date'}, format='%Y-%m-%d'),
         }
 
