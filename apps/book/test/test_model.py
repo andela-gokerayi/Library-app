@@ -1,5 +1,4 @@
 from datetime import date
-import factory
 from mock import patch
 import pytz
 
@@ -7,46 +6,8 @@ from django.test import TestCase
 from django.db import models
 from django.contrib.auth.models import User
 from apps.book.models import Book, BookLease, BookBorrowRequest, get_deadline
-from apps.libraryuser.models import Fellow
-
-
-class UserFactory(factory.DjangoModelFactory):
-    class Meta:
-        model = User
-
-    username = u'eniola'
-
-
-class BookFactory(factory.DjangoModelFactory):
-    class Meta:
-        model = Book
-
-    title = u'String Theory'
-
-
-class FellowFactory(factory.DjangoModelFactory):
-    class Meta:
-        model = Fellow
-
-    first_name = u'John'
-    email = u'john@example.com'
-
-
-class BookLeaseFactory(factory.DjangoModelFactory):
-    class Meta:
-        model = BookLease
-
-    book = factory.SubFactory(BookFactory)
-    borrower = factory.SubFactory(FellowFactory)
-    due_date = date(2015, 5, 26)
-
-
-class BookBorrowRequestFactory(factory.DjangoModelFactory):
-    class Meta:
-        model = BookBorrowRequest
-
-    book_name = factory.SubFactory(BookFactory)
-    borrower = factory.SubFactory(UserFactory)
+from apps.libraryuser.test.factories import FellowFactory, UserFactory
+from apps.book.test.factories import BookBorrowRequestFactory, BookFactory, BookLeaseFactory
 
 
 # Create your tests here.

@@ -2,34 +2,48 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.test.client import Client
 from django.core.urlresolvers import reverse
-# from django_dynamic_fixture import G
 from django.core.handlers.wsgi import WSGIRequest as HttpRequest
-# from selenium import webdriver
-# from django.http import HttpRequest
 from apps.book.views import *
 from apps.book.models import Book, BookLease
+from apps.book.test.factories import BookFactory
 
-class BookListViewTests(TestCase):
-    """docstring for BookListViewTests"""
-    def test_books_in_the_content(self):
+
+class BaseViewTest(TestCase):
+
+    def setUp(self):
         password = 'secret'
         user = User.objects.create_superuser(username='admin', password=password, email='admin@admin.com')
-    
-        client = Client()
-        logged_in = client.login(username=user.username, password=password)
+        self.client = Client()
+        logged_in = self.client.login(username=user.username, password=password)
         self.assertTrue(logged_in)
+
+
+class BookListViewTests(BaseViewTest):
+
+    def test_books_in_the_content_there_is_no_book(self):
         
-        response = client.get('/home/')
+        response = self.client.get(reverse('book-list'))
 
         self.assertEquals(list(response.context['object_list']), [])
 
-        Book.objects.create(title='getting things done',
-                            author='david allen', 
-                            isbn_number='22434643436',
-                            date_recieved='2015-04-16',
-                            quantity='3',
-                            source='dave',
-                            category='professional development'
-                            )
-        response = client.get('/home/')
+    def test_books_in_the_content_if_there_is_a_book(self):
+        BookFactory()
+
+        response = self.client.get(reverse('book-list'))
+
         self.assertEquals(response.context['object_list'].count(), 1)
+
+
+class BookDetailViewTest(BaseViewTest):
+
+    def test_book_information_no_book(self):
+        response = self.client.get(reverse('book-detail', args=[999]))
+
+        self.assertEquals(404, response.status_code)
+
+    def test_book_information_with_book(self):
+        book = BookFactory()
+
+        response = self.client.get(reverse('book-detail', args=[book.id]))
+
+        self.assertEquals(response.context['object'].title, 'String Theory')
