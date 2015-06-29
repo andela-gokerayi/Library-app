@@ -33,13 +33,6 @@ class Fellow(models.Model):
     def __unicode__(self):
         return '%s %s' %(self.first_name, self.last_name)
 
-    def get_name(self):
-        try:
-            first_name = self.Fellow.first_name
-            return first_name
-        except AttributeError, e:
-            e = '--'
-            return e
 
 class SkillTree():
     """docstring for SkillTree"""
@@ -70,9 +63,7 @@ def get_fellow_info():
 
     skill = SkillTree() 
     results = skill.fetch_data()
-    print results
     num_results = len(results)
-    print num_results
     for index in xrange(num_results):
         fellow = results[index]
         try:

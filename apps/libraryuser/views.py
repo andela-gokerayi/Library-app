@@ -32,13 +32,11 @@ class HomeView(View):
 
 
 def login (request):
-    print request
     c = {}
     c.update(csrf(request))
     return render_to_response('login.html', c)
 
 def auth_view(request):
-    print request
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
