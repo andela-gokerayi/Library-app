@@ -161,7 +161,7 @@ SKILLTREE_API_URL = 'http://skilltree.andela.co/api/v1/users'
 SKILLTREE_API_KEY = 'txPFk-ppyzzI0f6iAoF3jC3amGUosLsabznp26gUxn0'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "748084038438-i5222c8jsr2e9vbejct42bqdsj7vs2s0.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "Cff7GB8jmSgFhGNuahkUngg1"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "8JMEhvrsaagfq_X7WnMcWmqd"
 AUTH_URI = "https://accounts.google.com/o/oauth2/auth"
 TOKEN_URI = "https://accounts.google.com/o/oauth2/token"
 REDIRECT_URIs = ["http://localhost:8000/complete/google-oauth2/", "http://127.0.0.1:8000/complete/google-oauth2/", "http://andela-library.herokuapp.com/complete/google-oauth2/", "http://andela-library.herokuapp.com/complete/google-oauth2/"]
