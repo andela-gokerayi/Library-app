@@ -8,31 +8,24 @@ from apps.libraryuser.models import *
 
 class LibraryUserTests(TestCase):
 
+    def setUp(self):
+        self.password = 'secret'
+        self.user = User.objects.create_superuser(username='admin', password=self.password, email='admin@admin.com')
+
     def test_index(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
-
-    def test_log_in(self):
-        password = 'secret'
-        user = User.objects.create_superuser(username='admin', password=password, email='admin@admin.com')
+    def test_log_in_log_out(self):
     
         client = Client()
 
         response = client.post(
-            reverse('login'), {'username': user.username, 'password': password})
+            reverse('auth-user'), {'username': self.user.username, 'password': self.password})
         
-        self.assertEqual(True, user.is_authenticated())
-        self.assertEqual(client.session['_auth_user_id'], user.id)
-
-
-    def test_log_out(self):
-
-        client = Client()
-
-        client.post(
-            reverse('login'), {'username': 'ife', 'password': 'password'})
-        user = Fellow.objects.get(id='0')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(client.session['_auth_user_id'], self.user.id)
 
         client.get(reverse('logout'))
-        self.assertNotIn('_auth_user_id', client.session)
+
+        self.assertFalse('_auth_user_id' in client.session)

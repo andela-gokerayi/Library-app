@@ -19,18 +19,6 @@ class HomeView(View):
         return render_to_response('base.html', locals())
 
 
-# class BookIndexListView(ListView):
-
-#     model = Book
-
-#     def dispatch(self, *args, **kwargs):
-#         return super(BookIndexListView, self).dispatch(*args, **kwargs)
-
-#     def get_context_data(self, **kwargs):
-#         context = super(BookIndexListView, self).get_context_data(**kwargs)
-#         return context
-
-
 def login (request):
     c = {}
     c.update(csrf(request))
@@ -40,7 +28,6 @@ def auth_view(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
-    print user
 
     if user is not None:
         auth.login(request, user)
