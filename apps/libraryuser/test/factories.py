@@ -8,6 +8,7 @@ class UserFactory(factory.DjangoModelFactory):
         model = User
 
     username = u'eniola'
+    email = u'eniola@example.com'
 
 
 class FellowFactory(factory.DjangoModelFactory):

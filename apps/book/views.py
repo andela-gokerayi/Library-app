@@ -25,12 +25,8 @@ from apps.book.helpers import send_decline_mail, send_borrow_request_mail
 class BookListView(ListView):
     model = Book
     def get_context_data(self, **kwargs):
-        book_id = self.request.session.get('book_id')
         context = super(BookListView, self).get_context_data(**kwargs)
         context['form'] = LendBookForm()
-        if book_id:
-            book = Book.objects.get(pk=book_id)
-            context['book'] = book
         return context
 
 class BookDetailView(DetailView):
