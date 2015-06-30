@@ -1,12 +1,14 @@
+from datetime import date
+from mock import patch
+
 from django.utils.http import urlencode
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.core.handlers.wsgi import WSGIRequest as HttpRequest
-from apps.book.views import *
 from apps.book.models import Book, BookLease, BookBorrowRequest
-from apps.book.test.factories import BookFactory, BookBorrowRequestFactory
+from apps.book.test.factories import BookFactory, BookBorrowRequestFactory, BookLeaseFactory
 from apps.libraryuser.test.factories import UserFactory, FellowFactory
 
 
@@ -92,4 +94,70 @@ class AdminResponseViewTest(BaseViewTest):
 
         updated_requests = BookBorrowRequest.objects.filter(id=book_request.id)
         self.assertEquals(0, updated_requests.count())
+
+
+class BookLeaseListViewTest(BaseViewTest):
+
+    def setUp(self):
+        super(BookLeaseListViewTest, self).setUp()
+        book_lease = BookLeaseFactory()
+        second_book = BookFactory(title='Quantum Mechanics')
+        second_book_lease  = BookLeaseFactory(book=second_book, due_date=date(2015, 5, 27))
+        third_book = BookFactory(title='Solid State')
+        third_book_lease  = BookLeaseFactory(book=third_book, due_date=date(2015, 5, 28))
+        fourth_book = BookFactory(title='Digital Electronics')
+        fourth_book_lease  = BookLeaseFactory(book=fourth_book, due_date=date(2015, 5, 29))
+
+    def test_get_request_returns_list_of_book_lease(self):
+
+        response = self.client.get(reverse('booklease-list'))
+
+        book_leases = response.context['book_lease_list']
+        self.assertEquals(4, book_leases.count())
+        self.assertEquals(book_leases[0].book.title, 'String Theory')
+        self.assertEquals(book_leases[3].book.title, 'Digital Electronics')
+
+    def test_post_request_when_a_request_all_leases_is_made(self):
+
+        response = self.client.post(reverse('booklease-list'), {'filter': 1})
+
+        book_leases = response.context['book_lease_list']
+        self.assertEquals(4, book_leases.count())
+        self.assertEquals(book_leases[0].book.title, 'String Theory')
+        self.assertEquals(book_leases[3].book.title, 'Digital Electronics')
+        self.assertFalse('due' in response.context)
+
+    @patch('apps.book.views.BookLeaseListView.due_date')
+    def test_post_request_when_a_request_for_due_books_is_made(self, mock_due_date):
+        mock_due_date.return_value = date(2015, 5, 26)
+
+        response = self.client.post(reverse('booklease-list'), {'filter': 2})
+
+        book_leases = response.context['book_lease_list']
+        self.assertEquals(2, book_leases.count())
+        self.assertEquals(book_leases[0].book.title, 'Quantum Mechanics')
+        self.assertEquals(book_leases[1].book.title, 'Solid State')
+        self.assertFalse('due' in response.context)
+
+    @patch('apps.book.views.BookLeaseListView.due_date')
+    def test_post_request_when_a_request_for_about_to_be_due_books_is_made(self, mock_due_date):
+        mock_due_date.return_value = date(2015, 5, 27)
+
+        response = self.client.post(reverse('booklease-list'), {'filter': 3})
+
+        book_leases = response.context['book_lease_list']
+        self.assertEquals(2, book_leases.count())
+        self.assertEquals(book_leases[0].book.title, 'String Theory')
+        self.assertEquals(book_leases[1].book.title, 'Quantum Mechanics')
+        self.assertTrue('due' in response.context)
+
+    def test_post_request_when_an_invalid_request_is_made(self):
+
+        response = self.client.post(reverse('booklease-list'), {'filter': 10})
+
+        book_leases = response.context['book_lease_list']
+        self.assertEquals(4, book_leases.count())
+        self.assertEquals(book_leases[0].book.title, 'String Theory')
+        self.assertEquals(book_leases[3].book.title, 'Digital Electronics')
+        self.assertFalse('due' in response.context)
 

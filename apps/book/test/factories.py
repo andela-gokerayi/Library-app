@@ -11,6 +11,7 @@ class BookFactory(factory.DjangoModelFactory):
         model = Book
 
     title = u'String Theory'
+    isbn_number = factory.Sequence(lambda n: "isbn%d" % n)
 
 
 class BookLeaseFactory(factory.DjangoModelFactory):

@@ -60,24 +60,28 @@ def admin_response(request):
         
 class BookLeaseListView(View):
 
-    afteroneday = datetime.date.today() + datetime.timedelta(days=1)
-    aftertwodays = datetime.date.today() + datetime.timedelta(days=2)
-    due_date = datetime.date.today()
+    def due_date(self):
+        return datetime.date.today()
 
     def get(self, request):
         leased_book = BookLease.objects.all()
         return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book})
 
     def post(self, request):
-        if request.POST.get('filter', None) == "1":
-            leased_book = BookLease.objects.all()
-            return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book})
-        elif request.POST.get('filter', None) == "2":
-            leased_book = BookLease.objects.filter(Q(due_date=self.aftertwodays) | Q(due_date=self.afteroneday))
-            return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book})
-        elif request.POST.get('filter', None) == "3":
-            leased_book = BookLease.objects.filter(Q(due_date__lte=self.due_date))
-            return render(request, 'book/booklease_list.html', {'book_lease_list': leased_book, 'due': 'due'})
+        filter_option = request.POST.get('filter')
+        leased_books = BookLease.objects.all()
+        context = {}
+
+        if filter_option == "2":
+            afteroneday = self.due_date() + datetime.timedelta(days=1)
+            aftertwodays = self.due_date() + datetime.timedelta(days=2)
+            leased_books = leased_books.filter(Q(due_date=aftertwodays) | Q(due_date=afteroneday))
+        elif filter_option == "3":
+            leased_books = leased_books.filter(due_date__lte=self.due_date())
+            context['due'] = 'due'
+        context['book_lease_list'] = leased_books
+
+        return render(request, 'book/booklease_list.html', context)
 
 class BookLeaseDetailView(DetailView):
 
