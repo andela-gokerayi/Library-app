@@ -161,3 +161,20 @@ class BookLeaseListViewTest(BaseViewTest):
         self.assertEquals(book_leases[3].book.title, 'Digital Electronics')
         self.assertFalse('due' in response.context)
 
+
+class BookLeaseDetailViewTest(BaseViewTest):
+
+    def test_get_request_for_a_lease_detail_with_valid_id(self):
+        book_lease = BookLeaseFactory()
+
+        response = self.client.get(reverse('booklease-detail', args=[book_lease.book.id]))
+       
+        self.assertTrue('object' in response.context)
+        self.assertEquals(response.context['object'].book.title, 'String Theory')
+
+    def test_request_for_a_lease_detail_with_invalid_id(self):
+
+        response = self.client.get(reverse('booklease-detail', args=[999]))
+       
+        self.assertTrue('object' not in response.context)
+

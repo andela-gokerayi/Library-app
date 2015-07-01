@@ -1,16 +1,15 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic import View
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView, FormMixin, FormView
+from django.views.generic.list import ListView
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.views.generic.detail import DetailView
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 from django.template import RequestContext
-from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.views.generic.edit import DeleteView, FormMixin, FormView
-from django.views.generic.list import ListView
 from django.contrib import messages
 import datetime
 from django.contrib.auth.models import User
