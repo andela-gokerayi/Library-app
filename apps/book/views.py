@@ -91,10 +91,7 @@ class BookLeaseDetailView(DetailView):
         return context
 
 @login_required
-def get_book(request, id=None, template_name = 'book_new.html'):
-    user = request.user
-    if id:
-        book = get_object_or_404 (Book, pk=id)
+def get_book(request):
     if request.POST:
         form = AddForm(request.POST)
         if form.is_valid():
@@ -102,7 +99,7 @@ def get_book(request, id=None, template_name = 'book_new.html'):
             return render(request, "thank_you.html", locals())
     else:
         form = AddForm()
-    return render(request, 'book_new.html', {'form': form,},context_instance = RequestContext(request))
+    return render(request, 'book_new.html', {'form': form})
 
 
 @login_required

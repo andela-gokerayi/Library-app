@@ -178,3 +178,45 @@ class BookLeaseDetailViewTest(BaseViewTest):
        
         self.assertTrue('object' not in response.context)
 
+
+class TestGetBookView(BaseViewTest):
+
+    def test_get_request_for_adding_a_new_book(self):
+        response = self.client.get(reverse('add-book'))
+
+        self.assertTrue('form' in response.context) 
+
+    def test_post_request_for_adding_a_new_book_when_the_data_is_valid(self):
+
+        data = {
+            'title': 'Biology',
+            'author': 'Jess',
+            'category': 'Science',
+            'quantity': '3',
+            'source': 'Arinde Eniola',
+            'isbn_number': '1234'
+        }
+        response = self.client.post(reverse('add-book'), data)
+
+        self.assertContains(response, 'Biology Has Been Successfully Added')
+
+        books = Book.objects.filter(title='Biology')
+        self.assertEquals(books.count(), 1)
+
+    def test_post_request_for_adding_a_new_book_when_some_of_the_data_are_invalid(self):
+
+        data = {
+            'title': '',
+            'author': 'Jess',
+            'category': 'Science',
+            'quantity': 'sdsd',
+            'source': 'Arinde Eniola',
+            'isbn_number': '1234'
+        }
+        response = self.client.post(reverse('add-book'), data)
+
+        self.assertContains(response, 'This field is required.')
+        self.assertContains(response, 'Enter a whole number.')
+        books = Book.objects.all()
+        self.assertEquals(books.count(), 0)
+
