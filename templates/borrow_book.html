@@ -5,6 +5,8 @@
         <div class="card-content">
             <h4>Lend Book</h4>
             <div class="add-form">
+                <label for="id_book_title">Book:</label>
+                <div id="id_book_title">{{ book.title }}</div>
                 <form class="book-add" method="post">
                    {% csrf_token %}
                    {{ form }}

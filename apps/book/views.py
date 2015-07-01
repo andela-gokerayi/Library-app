@@ -104,7 +104,6 @@ def get_book(request):
 
 @login_required
 def borrow_book(request, id=None):
-    user = request.user
     book = Book.objects.get(id=id)
     form = LendBookForm(request.POST or None)
 
@@ -114,13 +113,12 @@ def borrow_book(request, id=None):
             book = Book.objects.get(pk=book_id)
             request.session['book_id'] = book_id
             form.save()
-            # request.session['borrower'] = borrower
             messages.success(request, 'Lent out Successfully')
             return HttpResponseRedirect('/home/')
     else:
         form.fields['book'].initial = book
 
-    return render(request, 'borrow_book.html', locals(), context_instance=RequestContext(request))
+    return render(request, 'borrow_book.html', locals())
 
 @login_required
 def lend_book(request, id=None):

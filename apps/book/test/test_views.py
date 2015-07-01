@@ -199,7 +199,6 @@ class TestGetBookView(BaseViewTest):
         response = self.client.post(reverse('add-book'), data)
 
         self.assertContains(response, 'Biology Has Been Successfully Added')
-
         books = Book.objects.filter(title='Biology')
         self.assertEquals(books.count(), 1)
 
@@ -220,3 +219,43 @@ class TestGetBookView(BaseViewTest):
         books = Book.objects.all()
         self.assertEquals(books.count(), 0)
 
+
+class BorrowBookViewTest(BaseViewTest):
+
+    def setUp(self):
+        super(BorrowBookViewTest, self).setUp()
+        self.book = BookFactory()
+
+    def test_get_request_for_borrowing_a_book_to_fellow(self):
+        response = self.client.get(reverse('borrow-book', args=[self.book.id]))
+
+        self.assertTrue('form' in response.context)
+        self.assertContains(response, 'String Theory')
+
+    def test_post_request_for_borrowing_a_book_when_the_data_is_valid(self):
+        fellow = FellowFactory()
+        data = {
+            'book': self.book.id,
+            'borrower': fellow.id,
+            'due_date': date(2015, 7, 3)
+        }
+
+        response = self.client.post(reverse('borrow-book', args=[self.book.id]), data)
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals('http://testserver/home/', response['Location'])
+        leases = BookLease.objects.filter(book=self.book)
+        self.assertEquals(leases.count(), 1)
+
+    def test_post_request_for_borrowing_a_book_when_the_data_is_not_valid(self):
+        fellow = FellowFactory()
+        data = {
+            'book': self.book.id,
+            'borrower': fellow.id
+        }
+
+        response = self.client.post(reverse('borrow-book', args=[self.book.id]), data)
+
+        self.assertContains(response, 'This field is required.')
+        leases = BookLease.objects.all()
+        self.assertEquals(leases.count(), 0)

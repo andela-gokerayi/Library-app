@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Textarea, TextInput, Select, Textarea, DateInput
+from django.forms import ModelForm, Textarea, TextInput, Select, Textarea, DateInput, HiddenInput
 from django.forms import ModelChoiceField
 from apps.book.models import Book, BookLease
 from apps.libraryuser.models import Fellow
@@ -28,9 +28,8 @@ class LendBookForm(ModelForm):
         model = BookLease
         fields = ['book', 'borrower', 'due_date']
         widgets = {
+            'book': HiddenInput(),
             'borrower': Select(attrs={'id': 'borrower', 'class': 'browser-default chosen-select'}),
-            'borrowed_date': DateInput(attrs={'type': 'date', 'class': 'datepicker',
-                'id': 'borrowed_date'}, format='%Y-%m-%d'),
             'due_date': DateInput(attrs={'type': 'date', 'class': 'datepicker',
                 'id': 'due_date'}, format='%Y-%m-%d'),
         }
