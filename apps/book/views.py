@@ -132,9 +132,8 @@ def lend_book(request, id=None):
 @login_required
 def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)   
-    if book:
-        book.delete()
-        messages.warning(request, 'has been deleted')
+    book.delete()
+    messages.warning(request, 'has been deleted')
     return HttpResponseRedirect('/home/')
 
 @login_required

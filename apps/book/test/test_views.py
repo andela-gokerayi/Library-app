@@ -293,3 +293,74 @@ class LendBookViewTest(BaseViewTest):
         mock_send_mail.assert_called_once_with("Book Lending request", msg, 'andela.library@andela.co',
               ['gbolahan.okerayi@andela.co', 'eniola.arinde@andela.co'])
 
+
+class BookDeleteViewTest(BaseViewTest):
+
+    def test_redirects_to_home_with_successfull_book_deletion(self):
+        book = BookFactory()
+
+        response = self.client.get(reverse('book_delete', args=[book.id]))
+
+        self.assertEquals(302, response.status_code)
+        self.assertEquals('http://testserver/home/', response['Location'])
+
+        check_book = Book.objects.filter(id=book.id)
+        self.assertEquals(0, check_book.count())
+
+    def test_returns_a_404_if_book_does_not_exist(self):
+
+        response = self.client.get(reverse('book_delete', args=[999]))
+
+        self.assertEquals(404, response.status_code)      
+
+
+class EditBookViewTest(BaseViewTest):
+
+    def test_get_request_returns_a_template_to_edit_a_book(self):
+        book = BookFactory()
+
+        response = self.client.get(reverse('edit-book', args=[book.id]))
+
+        self.assertContains(response, '<label for="id_title">Book Title: </label>')
+        self.assertTrue('book' in response.context)
+
+    def test_book_is_edited_when_a_post_request_is_made_with_valid_data(self):
+        book = BookFactory()
+
+        data = {
+            'title': 'Biology',
+            'author': 'Jess',
+            'category': 'Science',
+            'quantity': '3',
+            'source': 'Arinde Eniola',
+            'isbn_number': '1234'
+        }
+
+        response = self.client.post(reverse('edit-book', args=[book.id]), data)
+
+        self.assertEquals(200, response.status_code)
+        self.assertContains(response, '%s Has Been Successfully Edited' % data['title']) 
+
+        updated_book = Book.objects.get(id=book.id)
+        self.assertEquals('Jess', updated_book.author) 
+
+    def test_book_is_edited_when_a_post_request_is_made_with_invalid_data(self):
+        book = BookFactory()
+
+        data = {
+            'title': '',
+            'author': 'Jess',
+            'category': 'Science',
+            'quantity': 'eni',
+            'source': 'Arinde Eniola',
+            'isbn_number': '1234'
+        }
+
+        response = self.client.post(reverse('edit-book', args=[book.id]), data)
+
+        self.assertEquals(200, response.status_code)
+        self.assertContains(response, 'This field is required.' ) 
+        self.assertContains(response, 'Enter a whole number.' )
+       
+        updated_book = Book.objects.get(id=book.id)
+        self.assertEquals(updated_book.title, 'String Theory') 
