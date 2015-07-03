@@ -8,6 +8,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.core.handlers.wsgi import WSGIRequest as HttpRequest
 from apps.book.models import Book, BookLease, BookBorrowRequest
+from apps.book.views import BookLeaseListView
 from apps.book.test.factories import BookFactory, BookBorrowRequestFactory, BookLeaseFactory
 from apps.libraryuser.test.factories import UserFactory, FellowFactory
 
@@ -16,9 +17,9 @@ class BaseViewTest(TestCase):
 
     def setUp(self):
         password = 'secret'
-        user = User.objects.create_superuser(username='admin', password=password, email='admin@admin.com')
+        self.user = User.objects.create_superuser(username='admin', password=password, email='admin@admin.com')
         self.client = Client()
-        logged_in = self.client.login(username=user.username, password=password)
+        logged_in = self.client.login(username=self.user.username, password=password)
         self.assertTrue(logged_in)
 
 
@@ -91,7 +92,6 @@ class AdminResponseViewTest(BaseViewTest):
         url_parts = response['Location'].split('/')
         self.assertEquals('detail', url_parts[3])
         self.assertEquals('%s' % book_request.book_name.id, url_parts[4])
-
         updated_requests = BookBorrowRequest.objects.filter(id=book_request.id)
         self.assertEquals(0, updated_requests.count())
 
@@ -160,6 +160,13 @@ class BookLeaseListViewTest(BaseViewTest):
         self.assertEquals(book_leases[0].book.title, 'String Theory')
         self.assertEquals(book_leases[3].book.title, 'Digital Electronics')
         self.assertFalse('due' in response.context)
+
+    def test_due_date_function_returns_a_datetime(self):
+        book_lease = BookLeaseListView()
+
+        due_date = book_lease.due_date()
+
+        self.assertEquals(date, type(due_date))
 
 
 class BookLeaseDetailViewTest(BaseViewTest):
@@ -259,3 +266,30 @@ class BorrowBookViewTest(BaseViewTest):
         self.assertContains(response, 'This field is required.')
         leases = BookLease.objects.all()
         self.assertEquals(leases.count(), 0)
+
+
+class LendBookViewTest(BaseViewTest):
+
+    @patch('django.core.mail.send_mail')
+    def test_user_is_redirected_if_request_is_successful(self, mock_send_mail):
+
+        password = 'secret'
+        self.user = User.objects.create_user(username='eniola', password=password, email='eniola@admin.com')
+        logged_in = self.client.login(username=self.user.username, password=password)
+        self.assertTrue(logged_in)
+
+        book = BookFactory()
+
+        response = self.client.get(reverse('lend-book', args=[book.id]))
+
+        self.assertEquals(302, response.status_code)
+        self.assertEquals('http://testserver/home/', response['Location'])
+
+        new_request = BookBorrowRequest.objects.get(book_name=book)
+        self.assertEquals(new_request.borrower, self.user)
+
+        msg = 'A request is been made by %s to borrow the book "%s" ' %(self.user.username, book.title)
+
+        mock_send_mail.assert_called_once_with("Book Lending request", msg, 'andela.library@andela.co',
+              ['gbolahan.okerayi@andela.co', 'eniola.arinde@andela.co'])
+
