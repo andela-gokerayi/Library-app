@@ -14,18 +14,30 @@ class LibraryUserTests(TestCase):
 
     def test_index(self):
         response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'A library is the delivery room for the birth of ideas, ' 
+            '<br>a place,<br> where history comes to life.')
+
+    def test_get_login_request(self):
+        response = self.client.get(reverse('login'))
+        self.assertContains(response, 'Username')
+        self.assertContains(response, 'Login as Admin')
 
     def test_log_in_log_out(self):
-    
-        client = Client()
-
-        response = client.post(
+        response = self.client.post(
             reverse('login'), {'username': self.user.username, 'password': self.password})
         
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(client.session['_auth_user_id'], self.user.id)
+        self.assertEqual(self.client.session['_auth_user_id'], self.user.id)
 
-        client.get(reverse('logout'))
+        self.client.get(reverse('logout'))
 
-        self.assertFalse('_auth_user_id' in client.session)
+        self.assertFalse('_auth_user_id' in self.client.session)
+
+    def test_login_fails_with_an_invalid_id(self):
+        response = self.client.post(
+            reverse('login'), {'username': self.user.username, 'password': 'jess'})
+
+        self.assertFalse('_auth_user_id' in self.client.session)
+        self.assertContains(response, 'Username')
+        self.assertContains(response, 'Login as Admin')
+
