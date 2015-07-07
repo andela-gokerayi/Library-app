@@ -21,7 +21,7 @@ class LibraryUserTests(TestCase):
         client = Client()
 
         response = client.post(
-            reverse('auth-user'), {'username': self.user.username, 'password': self.password})
+            reverse('login'), {'username': self.user.username, 'password': self.password})
         
         self.assertEqual(response.status_code, 302)
         self.assertEqual(client.session['_auth_user_id'], self.user.id)

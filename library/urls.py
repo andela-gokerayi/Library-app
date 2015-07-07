@@ -8,7 +8,7 @@ from apps.book.views import book_delete
 from apps.book.views import get_book
 from apps.book.views import edit_book
 from apps.book.views import borrow_book, lend_book, admin_response
-from apps.libraryuser.views import  auth_view, login, logout
+from apps.libraryuser.views import login, logout
 from apps.libraryuser.views import HomeView
 from apps.libraryuser.models import Fellow
 from apps.libraryuser.tasks import send_admin_mail
@@ -20,7 +20,6 @@ urlpatterns = patterns ('',
     url(r'^book-detail/(?P<pk>[-_\w]+)', login_required(BookLeaseDetailView.as_view()), name='booklease-detail'),
     url(r'^home/$', login_required(BookListView.as_view()), name='book-list'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^auth-user/$', auth_view, name='auth-user'),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^book-status/$', login_required(BookLeaseListView.as_view()), name='booklease-list'),
