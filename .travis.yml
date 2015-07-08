@@ -2,8 +2,7 @@ language: python
 python:
   - "2.7"
 env:
-  - DJANGO_SETTINGS_MODULE=library.settings.dev
-  - SECRET_KEY=deWoXPPcKD+4IzHD8auVe9MgHz8XhiMtqLbkXIT0lSXQ/0FgF45VaRx9PVIjUUF+
+  - DJANGO_SETTINGS_MODULE=library.settings.dev SECRET_KEY=deWoXPPcKD+4IzHD8auVe9MgHz8XhiMtqLbkXIT0lSXQ/0FgF45VaRx9PVIjUUF+
 install:
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
