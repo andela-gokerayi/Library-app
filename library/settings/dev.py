@@ -1,14 +1,6 @@
 from .base import *
 
-#import djrill
-#celery settings
-BROKER_URL = 'django://'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-
-
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+import djrill
 
 DEBUG = True
 

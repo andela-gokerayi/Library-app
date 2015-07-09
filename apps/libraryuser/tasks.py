@@ -3,7 +3,6 @@
 
 from __future__ import absolute_import
 
-from celery import shared_task
 from apps.book.models import BookLease
 from apps.libraryuser.models import Fellow
 from django.core.mail import send_mail

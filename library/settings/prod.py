@@ -3,14 +3,6 @@ from .base import *
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 
-BROKER_URL = 'amqp://rrbpujlk:TftR7v-FMLm5dpVu87zqZJ32kSqWWOXF@owl.rmq.cloudamqp.com/rrbpujlk'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-
-
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
-
 DEBUG = True
 
 TEMPLATE_DEBUG = True

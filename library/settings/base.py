@@ -13,11 +13,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-#imports for message broker and messaging
-import djcelery
-#import djrill
-djcelery.setup_loader()
-
 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -47,13 +42,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'endless_pagination',
     'envvars',
     'apps.book',
     'apps.libraryuser',
     'social.apps.django_app.default',
-    'djcelery',
     'djrill',
 )
 

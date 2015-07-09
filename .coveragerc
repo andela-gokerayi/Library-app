@@ -1,5 +1,5 @@
 [run]
-source = apps, templates
+source = apps, library, templates
 branch = True
 omit = *test_*
     */migrations/*
