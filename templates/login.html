@@ -34,17 +34,17 @@
                       <label for="password">Password</label>
                     </div>
                   </div>
-                    
-                     <button class="btn waves-effect #26a69a lighten-2 waves-light login-botton" type="submit" name="action" value="login">Login as Admin
-                        <i class="mdi-content-send right"></i>
-                    </button>
+                    <div class="buton">
+                       <button class="btn waves-effect #26a69a lighten-2 waves-light login-botton" type="submit" name="action" value="login">Login as Admin<i class="fa fa-lock right"></i></button>
+                    </div><br />
+                      <div class="user-login">
+                         <a class="visit" href="{% url 'social:begin' 'google-oauth2' %}"><span>Not an Admin?</span> Login as User</a>
+                      </div>
+                    </div>
+                  </div>
                 </form>
               </div>
 
-              <div class="user-login">
-                <div><strong>OR</strong></div>
-                 <a class="waves-effect waves-light btn visit" href="{% url 'social:begin' 'google-oauth2' %}"><i class="mdi-action-exit-to-app right"></i>Login as User</a>
-              </div>
           </div>
 
         </div>

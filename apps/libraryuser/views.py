@@ -28,6 +28,8 @@ def login (request):
         if user is not None and user.is_active:
             auth.login(request, user)
             return HttpResponseRedirect(reverse('book-list'))
+        else:
+            return render_to_response('login_error.html')
 
     return render(request, 'login.html')
 

@@ -5,11 +5,12 @@ html, body {
 }
 
 .login-card {
-   margin-left: 25% !important;
+   margin-left: 19% !important;
 }
 
 .login-card-form {
-  margin-top: 12% !important;
+  margin-top: 15% !important;
+  width: 125%;
 }
 
 .login-form {
@@ -18,10 +19,15 @@ html, body {
 }
 
 .login-botton {
-  margin-top: 30px;
-  width: 70%;
-
+  margin-top: 25px;
+  color: #fff !important;
 }
+
+.both-buttons {
+  margin-top: 45px !important;
+  min-width: 139%
+}
+
 .username .password {
   width: 30% !important;
   margin-right:20px;
@@ -152,12 +158,12 @@ nav ul {
   background: linear-gradient(
      rgba(0, 0, 0, 0.6),
      rgba(0, 0, 0, 0.6)
-     ),url('../images/book2.jpg') no-repeat center center fixed;
+     ),url('../images/book2.1.jpg') no-repeat center center fixed;
   background-size: cover;
   margin: 0 auto;
   width: 100vw;
   text-align: center;
-  height: 600px;
+  height: 550px;
   font-family: Raleway, sans-serif !important;
 }
 
@@ -439,15 +445,27 @@ select {
   text-shadow: 0px 0px 3px rgba(0,0,0, .5);
 }
 
-.user-login {
-  position: relative;
-  left: 18%;
-  buttom: 0;
+.error-card {
+  width: 69%;
+  margin-left: 15% !important;
+  margin-top: 3% !important;
 }
 
 .user-login a {
   margin: 20px;
-  color: white !important;
+  color: #D6090E !important;
+  text-transform: uppercase; !important;
 }
 
+.back-link {
+  float: right;
+}
+
+.visited {
+  margin-left: 19px;
+}
+
+.visit:hover {
+    text-decoration: underline;
+}
 

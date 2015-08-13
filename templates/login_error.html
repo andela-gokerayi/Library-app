@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block img %}
+{% endblock %}
+
+{% block search %}
+{% endblock %}
+{% block content %}
+  <div class="card medium error-card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="https://c1.staticflickr.com/3/2879/12033379296_e6f4aca73e_z.jpg" alt="Smiley face" height="400" width="4">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">You are probably not an Admin.</span>
+    </div>
+      <a class="visited" href="{% url 'social:begin' 'google-oauth2' %}">Login as User</a><span><a href="{% url 'login' %}" class="back-link"><i class="fa fa-arrow-left"></i> Back to admin login</span></a>
+  </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
